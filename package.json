@@ -21,7 +21,87 @@
       "mode": "view"
     }
   ],
-  "preferences": [],
+  "preferences": [
+    {
+      "name": "show-bilibili-hot-search",
+      "title": "Show Bilibili (Hot Search)",
+      "label": "Bilibili (Hot Search)",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "description": "Whether to show trending topics from Bilibili (Hot Search)."
+    },
+    {
+      "name": "show-bilibili-hot-video",
+      "title": "Show Bilibili (Hot Video)",
+      "label": "Bilibili (Hot Video)",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "description": "Whether to show trending topics from Bilibili (Hot Video)."
+    },
+    {
+      "name": "show-bilibili-ranking",
+      "title": "Show Bilibili (Ranking)",
+      "label": "Bilibili (Ranking)",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "description": "Whether to show trending topics from Bilibili (Ranking)."
+    },
+    {
+      "name": "show-tieba-hot-topic",
+      "title": "Show Tieba (Hot Topic)",
+      "label": "Tieba (Hot Topic)",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "description": "Whether to show trending topics from Tieba (Hot Topic)."
+    },
+    {
+      "name": "show-douyin-hot-search",
+      "title": "Show Douyin (Hot Search)",
+      "label": "Douyin (Hot Search)",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "description": "Whether to show trending topics from Douyin (Hot Search)."
+    },
+    {
+      "name": "primaryService",
+      "title": "Primary Service",
+      "description": "Choose a service to display at the top of the list.",
+      "type": "dropdown",
+      "required": false,
+      "default": "default",
+      "data": [
+        {
+          "title": "Default Order",
+          "value": "default"
+        },
+        {
+          "title": "Bilibili (Hot Search)",
+          "value": "bilibili-hot-search"
+        },
+        {
+          "title": "Bilibili (Hot Video)",
+          "value": "bilibili-hot-video"
+        },
+        {
+          "title": "Bilibili (Ranking)",
+          "value": "bilibili-ranking"
+        },
+        {
+          "title": "Tieba (Hot Topic)",
+          "value": "tieba-hot-topic"
+        },
+        {
+          "title": "Douyin (Hot Search)",
+          "value": "douyin-hot-search"
+        }
+      ]
+    }
+  ],
   "scripts": {
     "dev": "ray develop",
     "build": "ray build -e dist",

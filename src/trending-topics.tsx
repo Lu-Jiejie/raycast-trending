@@ -9,7 +9,8 @@ import {
 } from '@raycast/api'
 import { useMemo, useState } from 'react'
 import { useTrending } from './hooks/useTrending'
-import { trendingServices } from './services'
+import { getEnabledServices } from './logic/settings'
+import { serviceDefinitions } from './services'
 
 function formatTimestamp(timestamp: number): string {
   if (!timestamp)
@@ -40,7 +41,8 @@ function formatCompactNumber(number: number) {
 }
 
 export default function Command() {
-  const [trendingType, setTrendingType] = useState<TrendingType>('bilibili-ranking')
+  const enabledServices = getEnabledServices()
+  const [trendingType, setTrendingType] = useState<TrendingType>(enabledServices[0].id)
   const { data, isLoading, refresh, timestamp } = useTrending(trendingType)
 
   const listItems = useMemo(() => {
@@ -107,7 +109,7 @@ export default function Command() {
   return (
     <List
       isLoading={isLoading}
-      navigationTitle={trendingServices[trendingType].title}
+      navigationTitle={serviceDefinitions.find(s => s.id === trendingType)?.title}
       searchBarPlaceholder={formatTimestamp(timestamp)}
       actions={(
         <ActionPanel>
@@ -124,8 +126,8 @@ export default function Command() {
           value={trendingType}
           onChange={value => setTrendingType(value as TrendingType)}
         >
-          {Object.entries(trendingServices).map(([key, value]) => (
-            <List.Dropdown.Item key={key} title={value.title} value={key} />
+          {enabledServices.map(service => (
+            <List.Dropdown.Item key={service.id} title={service.title} value={service.id} />
           ))}
         </List.Dropdown>
       )}
