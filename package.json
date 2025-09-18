@@ -10,7 +10,8 @@
     "Productivity"
   ],
   "platforms": [
-    "Windows"
+    "Windows",
+    "macOS"
   ],
   "icon": "icon.png",
   "commands": [
