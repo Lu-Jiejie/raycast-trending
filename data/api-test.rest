@@ -1,0 +1,8 @@
+### Bilibili Hot Search
+GET https://s.search.bilibili.com/main/hotword?limit=30
+
+### Bilibili Hot Videos
+GET https://api.bilibili.com/x/web-interface/popular
+
+### Bilibili Ranking
+GET https://api.bilibili.com/x/web-interface/ranking/v2

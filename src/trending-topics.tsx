@@ -23,9 +23,17 @@ export default function Command() {
         </ActionPanel>
       )}
     >
-      {
-        [1, 2, 3].map((item, index) => (<><List.Item key={index} title={`Item ${item}`} /></>))
-      }
+      <List.Item
+        title="Hello World"
+        icon={{
+          source: 'http://i0.hdslb.com/bfs/activity-plat/static/20221213/eaf2dd702d7cc14d8d9511190245d057/lrx9rnKo24.png',
+        }}
+        actions={(
+          <ActionPanel>
+            <Action.OpenInBrowser url="https://raycast.com" />
+          </ActionPanel>
+        )}
+      />
     </List>
   )
 }
