@@ -1,6 +1,6 @@
-import type { TrendingServiceKey } from '../services'
+import type { TrendingType } from '../services'
 import { trendingServices } from '../services'
 
-export function useTrending(type: TrendingServiceKey) {
+export function useTrending(type: TrendingType) {
   return trendingServices[type].hook()
 }

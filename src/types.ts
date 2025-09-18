@@ -1,8 +1,4 @@
-export type TrendingType
-  = 'bilibili-hot-search'
-    | 'bilibili-hot-video'
-    | 'bilibili-ranking'
-    | 'tieba-hot-search'
+import type { TrendingType } from './services'
 
 export interface TopicItem {
   id: string
@@ -13,3 +9,5 @@ export interface TopicItem {
   date?: string
   extra?: Record<string, any>
 }
+
+export { TrendingType }

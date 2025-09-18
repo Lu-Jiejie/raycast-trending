@@ -1,8 +1,18 @@
 ### Bilibili Hot Search
 GET https://s.search.bilibili.com/main/hotword?limit=30
 
-### Bilibili Hot Videos
+### Bilibili Hot Video
 GET https://api.bilibili.com/x/web-interface/popular
 
 ### Bilibili Ranking
 GET https://api.bilibili.com/x/web-interface/ranking/v2
+
+### Tieba Hot Topic
+GET https://tieba.baidu.com/hottopic/browse/topicList
+
+### Douyin Hot Search
+GET https://www.douyin.com/aweme/v1/web/hot/search/list/?device_platform=webapp&aid=6383&channel=channel_pc_web&detail_list=1 
+Cookie: xxx
+
+### Douyin Cookie
+GET https://www.douyin.com/passport/general/login_guiding_strategy/?aid=6383

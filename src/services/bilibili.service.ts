@@ -3,9 +3,9 @@ import { useCachedTrending } from '../hooks/useCachedTrending'
 import axios from '../logic/axios'
 
 export function useBilibiliHotSearch() {
-  const fetchBilibiliHotSearch = async (): Promise<TopicItem[]> => {
+  const fetchBilibiliHotSearch = async () => {
     const { data } = await axios.get('https://s.search.bilibili.com/main/hotword?limit=30')
-    return data.list.map((item: any) => {
+    return data.list.map((item: any): TopicItem => {
       let tag: string | undefined
       switch (item.word_type) {
         case 4: tag = '新'
@@ -32,13 +32,13 @@ export function useBilibiliHotSearch() {
       }
     })
   }
-  return useCachedTrending<TopicItem[]>('bilibili-hot-search', fetchBilibiliHotSearch, 1000 * 60 * 5)
+  return useCachedTrending('bilibili-hot-search', fetchBilibiliHotSearch, 1000 * 60 * 5)
 }
 
 export function useBilibiliHotVideo() {
-  const fetchBilibiliHotVideo = async (): Promise<TopicItem[]> => {
+  const fetchBilibiliHotVideo = async () => {
     const { data } = await axios.get('https://api.bilibili.com/x/web-interface/popular')
-    return data.data.list.map((item: any) => {
+    return data.data.list.map((item: any): TopicItem => {
       return {
         type: 'bilibili-hot-video',
         id: item.bvid,
@@ -58,14 +58,13 @@ export function useBilibiliHotVideo() {
       }
     })
   }
-  return useCachedTrending<TopicItem[]>('bilibili-hot-video', fetchBilibiliHotVideo)
+  return useCachedTrending('bilibili-hot-video', fetchBilibiliHotVideo)
 }
 
 export function useBilibiliRanking() {
-  const fetchBilibiliRanking = async (): Promise<TopicItem[]> => {
+  const fetchBilibiliRanking = async () => {
     const { data } = await axios.get('https://api.bilibili.com/x/web-interface/ranking/v2')
-    console.log(data.data.list.length)
-    return data.data.list.map((item: any) => {
+    return data.data.list.slice(0, 30).map((item: any): TopicItem => {
       return {
         type: 'bilibili-ranking',
         id: item.bvid,
@@ -82,7 +81,7 @@ export function useBilibiliRanking() {
           favorite: item.stat.favorite,
         },
       }
-    }).slice(0, 30)
+    })
   }
-  return useCachedTrending<TopicItem[]>('bilibili-ranking', fetchBilibiliRanking)
+  return useCachedTrending('bilibili-ranking', fetchBilibiliRanking)
 }

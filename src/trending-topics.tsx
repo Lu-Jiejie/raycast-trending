@@ -1,4 +1,4 @@
-import type { TrendingServiceKey } from './services'
+import type { TrendingType } from './services'
 import {
   Action,
   ActionPanel,
@@ -40,7 +40,7 @@ function formatCompactNumber(number: number) {
 }
 
 export default function Command() {
-  const [trendingType, setTrendingType] = useState<TrendingServiceKey>('bilibili-ranking')
+  const [trendingType, setTrendingType] = useState<TrendingType>('bilibili-ranking')
   const { data, isLoading, refresh, timestamp } = useTrending(trendingType)
 
   const listItems = useMemo(() => {
@@ -65,6 +65,19 @@ export default function Command() {
             { icon: Icon.Play, text: formatCompactNumber(item.extra?.view || 0) },
           ]
           break
+        case 'tieba-hot-topic':
+          accessories = [
+            { icon: Icon.Message, text: formatCompactNumber(item.extra?.discuss || 0) },
+          ]
+          break
+        case 'douyin-hot-search':
+          accessories = [
+            { tag: {
+              value: item.extra?.tag.value,
+              color: item.extra?.tag.color,
+            } },
+            { icon: Icon.LineChart, text: formatCompactNumber(item.extra?.hotValue || 0) },
+          ]
       }
 
       return (
@@ -81,7 +94,6 @@ export default function Command() {
                 title="Refresh"
                 icon={Icon.ArrowClockwise}
                 onAction={() => {
-                  console.log(trendingType)
                   refresh(true)
                 }}
               />
@@ -110,7 +122,7 @@ export default function Command() {
         <List.Dropdown
           tooltip="Select Trending Type"
           value={trendingType}
-          onChange={value => setTrendingType(value as TrendingServiceKey)}
+          onChange={value => setTrendingType(value as TrendingType)}
         >
           {Object.entries(trendingServices).map(([key, value]) => (
             <List.Dropdown.Item key={key} title={value.title} value={key} />
