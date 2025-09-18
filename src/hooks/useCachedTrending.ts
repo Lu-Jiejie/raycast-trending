@@ -1,5 +1,5 @@
 import { useCachedState } from '@raycast/utils'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 export function useCachedTrending<T>(
   cacheKey: string,
@@ -10,17 +10,18 @@ export function useCachedTrending<T>(
     data: T | null
     timestamp: number
   }>(cacheKey, { data: null, timestamp: 0 })
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
 
   const refresh = async (force = false) => {
     if (!force && cache.data && Date.now() - cache.timestamp <= ttl) {
       console.log(`[${cacheKey}] Using cached data`)
+      setIsLoading(false)
       return
     }
     setIsLoading(true)
     setError(null)
-
+    // setCache({ data: null, timestamp: Date.now() })
     try {
       const data = await handler()
       setCache({ data, timestamp: Date.now() })
@@ -32,9 +33,12 @@ export function useCachedTrending<T>(
       setIsLoading(false)
     }
   }
-  refresh()
+
+  useEffect(() => {
+    refresh()
+  }, [cacheKey])
 
   const data = useMemo(() => cache.data, [cache.data])
 
-  return { data, refresh, isLoading, error }
+  return { data, refresh, isLoading, error, timestamp: cache.timestamp }
 }

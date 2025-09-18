@@ -1,12 +1,12 @@
 import type { TopicItem } from '../types'
-import axios from 'axios'
-import { useCachedTrending } from '../logic/useCachedTrending'
+import { useCachedTrending } from '../hooks/useCachedTrending'
+import axios from '../logic/axios'
 
 export function useBilibiliHotSearch() {
   const fetchBilibiliHotSearch = async (): Promise<TopicItem[]> => {
     const { data } = await axios.get('https://s.search.bilibili.com/main/hotword?limit=30')
     return data.list.map((item: any) => {
-      let tag = ''
+      let tag: string | undefined
       switch (item.word_type) {
         case 4: tag = '新'
           break
@@ -20,7 +20,7 @@ export function useBilibiliHotSearch() {
           break
         case 12: tag = '独家'
           break
-        default: tag = ''
+        default: tag = undefined
       }
       return {
         type: 'bilibili-hot-search',
@@ -38,7 +38,7 @@ export function useBilibiliHotSearch() {
 export function useBilibiliHotVideo() {
   const fetchBilibiliHotVideo = async (): Promise<TopicItem[]> => {
     const { data } = await axios.get('https://api.bilibili.com/x/web-interface/popular')
-    return data.list.map((item: any) => {
+    return data.data.list.map((item: any) => {
       return {
         type: 'bilibili-hot-video',
         id: item.bvid,
@@ -47,10 +47,13 @@ export function useBilibiliHotVideo() {
         description: item.desc,
         extra: {
           owner: item.owner.name,
+          ownerFace: item.owner.face,
           view: item.stat.view,
           like: item.stat.like,
           coin: item.stat.coin,
+          danmaku: item.stat.danmaku,
           favorite: item.stat.favorite,
+          reason: item.rcmd_reason.content || undefined,
         },
       }
     })
@@ -61,6 +64,7 @@ export function useBilibiliHotVideo() {
 export function useBilibiliRanking() {
   const fetchBilibiliRanking = async (): Promise<TopicItem[]> => {
     const { data } = await axios.get('https://api.bilibili.com/x/web-interface/ranking/v2')
+    console.log(data.data.list.length)
     return data.data.list.map((item: any) => {
       return {
         type: 'bilibili-ranking',
@@ -70,13 +74,15 @@ export function useBilibiliRanking() {
         description: item.desc,
         extra: {
           owner: item.owner.name,
+          ownerFace: item.owner.face,
           view: item.stat.view,
           like: item.stat.like,
           coin: item.stat.coin,
+          danmaku: item.stat.danmaku,
           favorite: item.stat.favorite,
         },
       }
-    })
+    }).slice(0, 30)
   }
   return useCachedTrending<TopicItem[]>('bilibili-ranking', fetchBilibiliRanking)
 }
