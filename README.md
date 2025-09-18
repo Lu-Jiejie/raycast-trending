@@ -1,7 +1,4 @@
 <p align="center">
-  <a href="./README_zh.md">简体中文</a>
-</p>
-<p align="center">
   <img src="./assets/icon@dark.png" alt="Recent Projects Icon" height="140">
 </p>
 
