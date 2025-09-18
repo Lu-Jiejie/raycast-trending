@@ -1,36 +1,11 @@
+import type { TrendingType } from './definitions'
 import { kebabToPascalCase } from '../utils/string'
 import * as bilibili from './bilibili.service'
+import { serviceDefinitions } from './definitions'
 import * as douyin from './douyin.service'
 import * as tieba from './tieba.service'
 
 const allHooks = { ...bilibili, ...douyin, ...tieba }
-export interface ServiceConfig {
-  id: string
-  title: string
-}
-
-export const serviceDefinitions: ServiceConfig[] = [
-  {
-    id: 'bilibili-hot-search',
-    title: 'Bilibili (Hot Search)',
-  },
-  {
-    id: 'bilibili-hot-video',
-    title: 'Bilibili (Hot Video)',
-  },
-  {
-    id: 'bilibili-ranking',
-    title: 'Bilibili (Ranking)',
-  },
-  {
-    id: 'tieba-hot-topic',
-    title: 'Tieba (Hot Topic)',
-  },
-  {
-    id: 'douyin-hot-search',
-    title: 'Douyin (Hot Search)',
-  },
-]
 
 export const trendingServices = Object.fromEntries(
   serviceDefinitions.map((service) => {
@@ -51,6 +26,4 @@ export const trendingServices = Object.fromEntries(
       },
     ]
   }),
-)
-
-export type TrendingType = keyof typeof trendingServices
+) as Record<TrendingType, { title: string, hook: () => any }>

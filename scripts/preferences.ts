@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { serviceDefinitions } from '../src/services'
+import { serviceDefinitions } from '../src/services/definitions'
 
 // ESM-compatible way to get the directory name
 const __dirname = dirname(fileURLToPath(import.meta.url))

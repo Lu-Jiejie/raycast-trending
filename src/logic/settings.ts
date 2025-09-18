@@ -1,6 +1,6 @@
-import type { ServiceConfig } from '../services'
+import type { ServiceConfig } from '../services/definitions'
 import { getPreferenceValues } from '@raycast/api'
-import { serviceDefinitions } from '../services'
+import { serviceDefinitions } from '../services/definitions'
 
 interface Preferences {
   primaryService: string

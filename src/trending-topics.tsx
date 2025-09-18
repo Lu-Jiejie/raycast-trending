@@ -1,4 +1,5 @@
-import type { TrendingType } from './services'
+import type { TrendingType } from './services/definitions'
+import type { TopicItem } from './types'
 import {
   Action,
   ActionPanel,
@@ -10,7 +11,7 @@ import {
 import { useMemo, useState } from 'react'
 import { useTrending } from './hooks/useTrending'
 import { getEnabledServices } from './logic/settings'
-import { serviceDefinitions } from './services'
+import { serviceDefinitions } from './services/definitions'
 
 function formatTimestamp(timestamp: number): string {
   if (!timestamp)
@@ -46,7 +47,7 @@ export default function Command() {
   const { data, isLoading, refresh, timestamp } = useTrending(trendingType)
 
   const listItems = useMemo(() => {
-    return data?.map((item, index) => {
+    return data?.map((item: TopicItem, index: number) => {
       let subtitle: string | undefined
       let accessories: List.Item.Accessory[] = []
 
@@ -106,10 +107,12 @@ export default function Command() {
     })
   }, [data, trendingType, refresh])
 
+  const navigationTitle = serviceDefinitions.find(s => s.id === trendingType)?.title ?? ''
+
   return (
     <List
       isLoading={isLoading}
-      navigationTitle={serviceDefinitions.find(s => s.id === trendingType)?.title}
+      navigationTitle={navigationTitle}
       searchBarPlaceholder={formatTimestamp(timestamp)}
       actions={(
         <ActionPanel>

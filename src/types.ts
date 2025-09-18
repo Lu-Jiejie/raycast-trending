@@ -1,4 +1,4 @@
-import type { TrendingType } from './services'
+import type { TrendingType } from './services/definitions'
 
 export interface TopicItem {
   id: string
@@ -9,5 +9,3 @@ export interface TopicItem {
   date?: string
   extra?: Record<string, any>
 }
-
-export { TrendingType }
