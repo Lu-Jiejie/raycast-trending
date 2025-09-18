@@ -15,7 +15,7 @@ A Raycast extension to quickly view and open trending topics of several platform
 <img width="862" src="./assets/example.png">
 
 <p align="center">
-  English / <a href="./README_zh.md">简体中文</a>
+  English / <a href="./README.zh-CN.md">简体中文</a>
 </p>
 
 ## Supported Platforms
