@@ -162,23 +162,23 @@ export default function Command() {
         key={`${trendingType}-header`}
         actions={(
           <ActionPanel>
-            <Action.OpenInBrowser
-              title="Open in Browser"
-              url={definition!.page}
-            />
-            <Action.OpenInBrowser
-              title="Open Homepage in Browser"
-              url={definition!.homepage}
+            <Action
+              title="Refresh"
+              icon={Icon.ArrowClockwise}
+              onAction={() => refresh(true)}
+              shortcut={{
+                macOS: { modifiers: ['cmd'], key: 'r' },
+                windows: { modifiers: ['ctrl'], key: 'r' },
+              }}
             />
             <ActionPanel.Section title="More">
-              <Action
-                title="Refresh"
-                icon={Icon.ArrowClockwise}
-                onAction={() => refresh(true)}
-                shortcut={{
-                  macOS: { modifiers: ['cmd'], key: 'r' },
-                  windows: { modifiers: ['ctrl'], key: 'r' },
-                }}
+              <Action.OpenInBrowser
+                title="Open List in Browser"
+                url={definition!.page}
+              />
+              <Action.OpenInBrowser
+                title="Open Homepage in Browser"
+                url={definition!.homepage}
               />
             </ActionPanel.Section>
           </ActionPanel>
