@@ -40,6 +40,14 @@ async function updatePreferences() {
         value: service.id,
       })),
     ],
+  }, {
+    name: 'ttl',
+    title: 'Cache Duration',
+    description: 'Duration to cache trending topics (in minutes). Cache will be ignored when manually refreshing.',
+    type: 'textfield',
+    required: false,
+    default: '5',
+    placeholder: '5',
   })
 
   packageJson.preferences = newPreferences

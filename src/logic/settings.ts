@@ -2,13 +2,9 @@ import type { ServiceConfig } from '../services/definitions'
 import { getPreferenceValues } from '@raycast/api'
 import { serviceDefinitions } from '../services/definitions'
 
-interface Preferences {
-  primaryService: string
-  [key: string]: boolean | string
-}
+const preferences = getPreferenceValues<Preferences>()
 
 export function getEnabledServices(): ServiceConfig[] {
-  const preferences = getPreferenceValues<Preferences>()
   const enabledServices = serviceDefinitions.filter(
     service => preferences[`show-${service.id}`],
   )
@@ -27,4 +23,9 @@ export function getEnabledServices(): ServiceConfig[] {
   }
 
   return enabledServices
+}
+
+export const settings = {
+  enabledServices: getEnabledServices(),
+  ttl: +(preferences.ttl) * 60 * 1000 || 5 * 60 * 1000,
 }

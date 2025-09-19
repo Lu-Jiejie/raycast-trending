@@ -32,7 +32,7 @@ export function useBilibiliHotSearch() {
       }
     })
   }
-  return useCachedTrending('bilibili-hot-search', fetchBilibiliHotSearch, 1000 * 60 * 5)
+  return useCachedTrending('bilibili-hot-search', fetchBilibiliHotSearch)
 }
 
 export function useBilibiliHotVideo() {

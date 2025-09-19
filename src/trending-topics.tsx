@@ -10,7 +10,7 @@ import {
 } from '@raycast/api'
 import { useMemo, useState } from 'react'
 import { useTrending } from './hooks/useTrending'
-import { getEnabledServices } from './logic/settings'
+import { settings } from './logic/settings'
 import { serviceDefinitions } from './services/definitions'
 
 function formatTimestamp(timestamp: number): string {
@@ -42,9 +42,12 @@ function formatCompactNumber(number: number) {
 }
 
 export default function Command() {
-  const enabledServices = getEnabledServices()
+  const enabledServices = settings.enabledServices
   const [trendingType, setTrendingType] = useState<TrendingType>(enabledServices[0].id)
   const { data, isLoading, refresh, timestamp } = useTrending(trendingType)
+  const definition = serviceDefinitions.find(s => s.id === trendingType)
+  const title = definition!.title
+  const icon = definition!.icon
 
   const listItems = useMemo(() => {
     return data?.map((item: TopicItem, index: number) => {
@@ -94,7 +97,7 @@ export default function Command() {
 
       return (
         <List.Item
-          key={item.id}
+          key={`${trendingType}-${item.id}`}
           icon={getRankIcon(index)}
           title={item.title}
           subtitle={subtitle}
@@ -102,13 +105,19 @@ export default function Command() {
           actions={(
             <ActionPanel>
               <Action.OpenInBrowser url={item.url} />
-              <Action
-                title="Refresh"
-                icon={Icon.ArrowClockwise}
-                onAction={() => {
-                  refresh(true)
-                }}
-              />
+              <ActionPanel.Section title="More">
+                <Action
+                  title="Refresh"
+                  icon={Icon.ArrowClockwise}
+                  onAction={() => {
+                    refresh(true)
+                  }}
+                  shortcut={{
+                    macOS: { modifiers: ['cmd'], key: 'r' },
+                    windows: { modifiers: ['ctrl'], key: 'r' },
+                  }}
+                />
+              </ActionPanel.Section>
             </ActionPanel>
           )}
         />
@@ -116,19 +125,21 @@ export default function Command() {
     })
   }, [data, trendingType, refresh])
 
-  const navigationTitle = serviceDefinitions.find(s => s.id === trendingType)?.title ?? ''
-
   return (
     <List
       isLoading={isLoading}
-      navigationTitle={navigationTitle}
-      searchBarPlaceholder={formatTimestamp(timestamp)}
+      navigationTitle={title}
+      searchBarPlaceholder={`Search in ${title}`}
       actions={(
         <ActionPanel>
           <Action
             title="Refresh"
             icon={Icon.ArrowClockwise}
             onAction={() => refresh(true)}
+            shortcut={{
+              macOS: { modifiers: ['cmd'], key: 'r' },
+              windows: { modifiers: ['ctrl'], key: 'r' },
+            }}
           />
         </ActionPanel>
       )}
@@ -144,7 +155,38 @@ export default function Command() {
         </List.Dropdown>
       )}
     >
-      {listItems}
+      <List.Item
+        title={title}
+        subtitle={formatTimestamp(timestamp)}
+        icon={icon}
+        key={`${trendingType}-header`}
+        actions={(
+          <ActionPanel>
+            <Action.OpenInBrowser
+              title="Open in Browser"
+              url={definition!.page}
+            />
+            <Action.OpenInBrowser
+              title="Open Homepage in Browser"
+              url={definition!.homepage}
+            />
+            <ActionPanel.Section title="More">
+              <Action
+                title="Refresh"
+                icon={Icon.ArrowClockwise}
+                onAction={() => refresh(true)}
+                shortcut={{
+                  macOS: { modifiers: ['cmd'], key: 'r' },
+                  windows: { modifiers: ['ctrl'], key: 'r' },
+                }}
+              />
+            </ActionPanel.Section>
+          </ActionPanel>
+        )}
+      />
+      <List.Section title="Trending Topics">
+        {listItems}
+      </List.Section>
     </List>
   )
 }

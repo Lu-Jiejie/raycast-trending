@@ -1,11 +1,14 @@
 import type { TopicItem } from '../types'
 import { useCachedState } from '@raycast/utils'
 import { useEffect, useMemo, useState } from 'react'
+import { settings } from '../logic/settings'
+
+const minTTL = 1000 * 10 // minimum 10 seconds
+const ttl = settings.ttl
 
 export function useCachedTrending(
   cacheKey: string,
   handler: () => Promise<TopicItem[]>,
-  ttl: number = 1000 * 60 * 30, // default 30 minutes
 ) {
   const [cache, setCache] = useCachedState<{
     data: TopicItem[] | null
@@ -15,7 +18,10 @@ export function useCachedTrending(
   const [error, setError] = useState<Error | null>(null)
 
   const refresh = async (force = false) => {
-    if (!force && cache.data && Date.now() - cache.timestamp <= ttl) {
+    if (
+      (force && Date.now() - cache.timestamp < minTTL)
+      && (cache.data && Date.now() - cache.timestamp <= ttl)
+    ) {
       // console.log(`[${cacheKey}] Using cached data`)
       setIsLoading(false)
       return
