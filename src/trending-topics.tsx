@@ -81,6 +81,15 @@ export default function Command() {
             } },
             { icon: Icon.LineChart, text: formatCompactNumber(item.extra?.hotValue || 0) },
           ]
+          break
+        case 'weibo-hot-search':
+          accessories = [
+            { tag: {
+              value: item.extra?.tag.value,
+              color: item.extra?.tag.color,
+            } },
+            { icon: Icon.LineChart, text: formatCompactNumber(item.extra?.hotValue || 0) },
+          ]
       }
 
       return (

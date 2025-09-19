@@ -19,6 +19,10 @@ export const serviceDefinitions = [
     id: 'douyin-hot-search',
     title: 'Douyin (Hot Search)',
   },
+  {
+    id: 'weibo-hot-search',
+    title: 'Weibo (Hot Search)',
+  },
 ] as const
 
 export type TrendingType = typeof serviceDefinitions[number]['id']

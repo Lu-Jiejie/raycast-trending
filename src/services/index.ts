@@ -4,8 +4,9 @@ import * as bilibili from './bilibili.service'
 import { serviceDefinitions } from './definitions'
 import * as douyin from './douyin.service'
 import * as tieba from './tieba.service'
+import * as weibo from './weibo.service'
 
-const allHooks = { ...bilibili, ...douyin, ...tieba }
+const allHooks = { ...bilibili, ...douyin, ...tieba, ...weibo }
 
 export const trendingServices = Object.fromEntries(
   serviceDefinitions.map((service) => {

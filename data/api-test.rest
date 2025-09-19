@@ -16,3 +16,9 @@ Cookie: xxx
 
 ### Douyin Cookie
 GET https://www.douyin.com/passport/general/login_guiding_strategy/?aid=6383
+
+### Weibo Hot Search
+GET https://m.weibo.cn/api/container/getIndex?containerid=106003%26filter_type%3Drealtimehot
+Referer: https://s.weibo.com/top/summary?cate=realtimehot
+X-Requested-With: XMLHttpRequest
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/

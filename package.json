@@ -69,6 +69,15 @@
       "description": "Whether to show trending topics from Douyin (Hot Search)."
     },
     {
+      "name": "show-weibo-hot-search",
+      "title": "Show Weibo (Hot Search)",
+      "label": "Weibo (Hot Search)",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "description": "Whether to show trending topics from Weibo (Hot Search)."
+    },
+    {
       "name": "primaryService",
       "title": "Primary Service",
       "description": "Choose a service to display at the top of the list.",
@@ -99,6 +108,10 @@
         {
           "title": "Douyin (Hot Search)",
           "value": "douyin-hot-search"
+        },
+        {
+          "title": "Weibo (Hot Search)",
+          "value": "weibo-hot-search"
         }
       ]
     }
