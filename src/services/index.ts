@@ -8,23 +8,14 @@ import * as weibo from './weibo.service'
 
 const allHooks = { ...bilibili, ...douyin, ...tieba, ...weibo }
 
-export const trendingServices = Object.fromEntries(
+export const trendingHookMap = Object.fromEntries(
   serviceDefinitions.map((service) => {
     const hookName = `use${kebabToPascalCase(service.id)}`
     const hook = (allHooks as Record<string, () => any>)[hookName]
 
     if (!hook) {
-      throw new Error(
-        `Hook not found for service ID: "${service.id}". Expected to find an exported function named "${hookName}".`,
-      )
+      return []
     }
-
-    return [
-      service.id,
-      {
-        title: service.title,
-        hook,
-      },
-    ]
+    return [service.id, hook]
   }),
-) as Record<TrendingType, { title: string, hook: () => any }>
+) as Record<TrendingType, () => any>

@@ -16,12 +16,12 @@ async function updatePreferences() {
   for (const service of serviceDefinitions) {
     newPreferences.push({
       name: `show-${service.id}`,
-      title: `Show ${service.title}`,
-      label: service.title,
+      title: `Show ${service.title.en}`,
+      label: service.title.en,
       type: 'checkbox',
       required: false,
       default: true,
-      description: `Whether to show trending topics from ${service.title}.`,
+      description: `Whether to show trending topics from ${service.title.en}.`,
     })
   }
 
@@ -36,7 +36,7 @@ async function updatePreferences() {
     data: [
       { title: 'Default Order', value: 'default' },
       ...serviceDefinitions.map(service => ({
-        title: service.title,
+        title: service.title.en,
         value: service.id,
       })),
     ],
@@ -48,6 +48,17 @@ async function updatePreferences() {
     required: false,
     default: '5',
     placeholder: '5',
+  }, {
+    name: 'lang',
+    title: 'Interface Language',
+    description: 'Choose the language shown in the interface.',
+    type: 'dropdown',
+    required: false,
+    default: 'en',
+    data: [
+      { title: 'English', value: 'en' },
+      { title: '简体中文', value: 'zh' },
+    ],
   })
 
   packageJson.preferences = newPreferences

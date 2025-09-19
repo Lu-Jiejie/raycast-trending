@@ -24,9 +24,13 @@ export function useWeiboHotSearch() {
           && !(item.actionlog.ext as string).includes('ads_word')
           && item.desc
       })
+      .slice(0, 30)
       .map((item: any): TopicItem => {
         const tagType = +((item.icon as string || '').match(/moter\/flags\/(\d+)_\d+\.png/)?.[1] || '0')
         const tag = tagMap[tagType as keyof typeof tagMap] || {}
+        // item.desc_extr: "剧集 155144"
+        const hotValue = (`${item.desc_extr}` as string || '').match(/(\d+)/)?.[1] || 0
+        // console.log(item.desc_extr, hotValue)
         return {
           type: 'weibo-hot-search',
           id: item.desc,
@@ -35,11 +39,11 @@ export function useWeiboHotSearch() {
           description: item.desc,
           extra: {
             tag,
-            hotValue: item.desc_extr,
+            hotValue,
           },
         }
       })
   }
 
-  return useCachedTrending('weibo-hot-search', fetchWeiboHotSearch, 1000 * 60 * 5)
+  return useCachedTrending('weibo-hot-search', fetchWeiboHotSearch)
 }

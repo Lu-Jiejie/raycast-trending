@@ -13,11 +13,57 @@ import { useTrending } from './hooks/useTrending'
 import { settings } from './logic/settings'
 import { serviceDefinitions } from './services/definitions'
 
+const lang = settings.lang
+const i18n = {
+  refresh: {
+    en: 'Refresh',
+    zh: '刷新',
+  },
+  openInBrowser: {
+    en: 'Open in Browser',
+    zh: '在浏览器中打开',
+  },
+  openListInBrowser: {
+    en: 'Open List in Browser',
+    zh: '在浏览器中打开列表',
+  },
+  openHomepageInBrowser: {
+    en: 'Open Homepage in Browser',
+    zh: '在浏览器中打开主页',
+  },
+  lastUpdated: {
+    en: 'Last updated',
+    zh: '最后更新',
+  },
+  updating: {
+    en: 'Updating...',
+    zh: '正在更新...',
+  },
+  more: {
+    en: 'More',
+    zh: '更多',
+  },
+  searchPlaceholder(serviceName: string) {
+    return {
+      en: `Search in ${serviceName}...`,
+      zh: `在 ${serviceName} 中搜索 ...`,
+    }
+  },
+  selectTrendingType: {
+    en: 'Select Trending Type',
+    zh: '选择热点分类',
+  },
+  trendingTopics: {
+    en: 'Trending Topics',
+    zh: '热点',
+  },
+}
+
 function formatTimestamp(timestamp: number): string {
   if (!timestamp)
-    return 'Updating...'
+    return i18n.updating[lang]
 
-  return `Last updated: ${new Date(timestamp).toLocaleString()}`
+  return `${i18n.lastUpdated[lang]}: ${new Date(timestamp).toLocaleString()}`
 }
 
 function getRankIcon(rank: number): Image.ImageLike {
@@ -38,7 +84,9 @@ function formatCompactNumber(number: number) {
   // if (number < 10000)
   //   return `${(number / 1000).toFixed(1)}K`
   // return `${(number / 1000000).toFixed(1)}M`
-  return new Intl.NumberFormat('en-US', { notation: 'compact' }).format(number)
+  const langCode = lang === 'en' ? 'en-US' : 'zh-CN'
+  const res = new Intl.NumberFormat(langCode, { notation: 'compact' }).format(number)
+  return res
 }
 
 export default function Command() {
@@ -46,7 +94,7 @@ export default function Command() {
   const [trendingType, setTrendingType] = useState<TrendingType>(enabledServices[0].id)
   const { data, isLoading, refresh, timestamp } = useTrending(trendingType)
   const definition = serviceDefinitions.find(s => s.id === trendingType)
-  const title = definition!.title
+  const title = definition!.title[lang]
   const icon = definition!.icon
 
   const listItems = useMemo(() => {
@@ -104,10 +152,13 @@ export default function Command() {
           accessories={accessories}
           actions={(
             <ActionPanel>
-              <Action.OpenInBrowser url={item.url} />
-              <ActionPanel.Section title="More">
+              <Action.OpenInBrowser
+                url={item.url}
+                title={i18n.openInBrowser[lang]}
+              />
+              <ActionPanel.Section title={i18n.more[lang]}>
                 <Action
-                  title="Refresh"
+                  title={i18n.refresh[lang]}
                   icon={Icon.ArrowClockwise}
                   onAction={() => {
                     refresh(true)
@@ -129,11 +180,11 @@ export default function Command() {
     <List
       isLoading={isLoading}
       navigationTitle={title}
-      searchBarPlaceholder={`Search in ${title}`}
+      searchBarPlaceholder={i18n.searchPlaceholder(definition!.title[lang])[lang]}
       actions={(
         <ActionPanel>
           <Action
-            title="Refresh"
+            title={i18n.refresh[lang]}
             icon={Icon.ArrowClockwise}
             onAction={() => refresh(true)}
             shortcut={{
@@ -145,12 +196,12 @@ export default function Command() {
       )}
       searchBarAccessory={(
         <List.Dropdown
-          tooltip="Select Trending Type"
+          tooltip={i18n.selectTrendingType[lang]}
           value={trendingType}
           onChange={value => setTrendingType(value as TrendingType)}
         >
           {enabledServices.map(service => (
-            <List.Dropdown.Item key={service.id} title={service.title} value={service.id} />
+            <List.Dropdown.Item key={service.id} title={service.title[lang]} value={service.id} />
           ))}
         </List.Dropdown>
       )}
@@ -163,7 +214,7 @@ export default function Command() {
         actions={(
           <ActionPanel>
             <Action
-              title="Refresh"
+              title={i18n.refresh[lang]}
               icon={Icon.ArrowClockwise}
               onAction={() => refresh(true)}
               shortcut={{
@@ -171,20 +222,20 @@ export default function Command() {
                 windows: { modifiers: ['ctrl'], key: 'r' },
               }}
             />
-            <ActionPanel.Section title="More">
+            <ActionPanel.Section title={i18n.more[lang]}>
               <Action.OpenInBrowser
-                title="Open List in Browser"
+                title={i18n.openListInBrowser[lang]}
                 url={definition!.page}
               />
               <Action.OpenInBrowser
-                title="Open Homepage in Browser"
+                title={i18n.openHomepageInBrowser[lang]}
                 url={definition!.homepage}
               />
             </ActionPanel.Section>
           </ActionPanel>
         )}
       />
-      <List.Section title="Trending Topics">
+      <List.Section title={i18n.trendingTopics[lang]}>
         {listItems}
       </List.Section>
     </List>

@@ -1,7 +1,7 @@
 import type { TrendingType } from '../services/definitions'
 import type { useCachedTrending } from './useCachedTrending'
-import { trendingServices } from '../services'
+import { trendingHookMap } from '../services'
 
 export function useTrending(type: TrendingType) {
-  return trendingServices[type].hook() as ReturnType<typeof useCachedTrending>
+  return trendingHookMap[type]() as ReturnType<typeof useCachedTrending>
 }

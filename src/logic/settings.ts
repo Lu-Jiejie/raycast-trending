@@ -28,4 +28,5 @@ export function getEnabledServices(): ServiceConfig[] {
 export const settings = {
   enabledServices: getEnabledServices(),
   ttl: +(preferences.ttl) * 60 * 1000 || 5 * 60 * 1000,
+  lang: preferences.lang || 'en',
 }

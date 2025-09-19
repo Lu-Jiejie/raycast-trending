@@ -18,6 +18,7 @@ export function useCachedTrending(
   const [error, setError] = useState<Error | null>(null)
 
   const refresh = async (force = false) => {
+    // console.log(`[${cacheKey}] Refreshing...`)
     if (
       (force && Date.now() - cache.timestamp < minTTL)
       && (cache.data && Date.now() - cache.timestamp <= ttl)
@@ -35,6 +36,7 @@ export function useCachedTrending(
     }
     catch (err) {
       setError(err as Error)
+      console.error(`[${cacheKey}] Error:`, err)
     }
     finally {
       setIsLoading(false)
