@@ -7,8 +7,10 @@ import {
   Icon,
   Image,
   List,
+  showToast,
+  Toast,
 } from '@raycast/api'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTrending } from './hooks/useTrending'
 import { settings } from './logic/settings'
 import { serviceDefinitions } from './services/definitions'
@@ -89,13 +91,29 @@ function formatCompactNumber(number: number) {
   return res
 }
 
+function formatDate(date: string | number) {
+  const d = new Date(date)
+  // to YYYY-MM-DD HH:mm
+  return d.toISOString().replace('T', ' ').slice(0, 16)
+}
+
 export default function Command() {
   const enabledServices = settings.enabledServices
-  const [trendingType, setTrendingType] = useState<TrendingType>(enabledServices[0].id)
-  const { data, isLoading, refresh, timestamp } = useTrending(trendingType)
+  const [trendingType, setTrendingType] = useState<TrendingType>('zhihu-hot-topic')
+  const { data, isLoading, refresh, timestamp, error } = useTrending(trendingType)
   const definition = serviceDefinitions.find(s => s.id === trendingType)
   const title = definition!.title[lang]
   const icon = definition!.icon
+
+  useEffect(() => {
+    if (error) {
+      showToast({
+        style: Toast.Style.Failure,
+        title: 'Error',
+        message: error.message,
+      })
+    }
+  }, [error])
 
   const listItems = useMemo(() => {
     return data?.map((item: TopicItem, index: number) => {
@@ -141,6 +159,19 @@ export default function Command() {
             } },
             { icon: Icon.LineChart, text: formatCompactNumber(item.extra?.hotValue || 0) },
           ]
+          break
+        case 'thepaper-hot-news':
+          accessories = [
+            { icon: Icon.ThumbsUp, text: formatCompactNumber(item.extra?.praiseCount || 0) },
+            // { icon: Icon.SpeechBubbleActive, text: formatCompactNumber(item.extra?.commentCount || 0) },
+            { text: formatDate(item.extra?.publishTime) },
+          ]
+          break
+        case 'zhihu-hot-topic':
+          accessories = [
+            { icon: Icon.LineChart, text: formatCompactNumber(item.extra?.hotValue || 0) },
+          ]
+          break
       }
 
       return (

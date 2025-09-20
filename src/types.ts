@@ -6,6 +6,5 @@ export interface TopicItem {
   url: string
   type: TrendingType
   description?: string
-  date?: string
   extra?: Record<string, any>
 }

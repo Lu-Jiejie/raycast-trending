@@ -59,6 +59,26 @@ export const serviceDefinitions = [
     page: 'https://weibo.com/hot/search',
     homepage: 'https://www.weibo.com',
   },
+  {
+    id: 'thepaper-hot-news',
+    title: {
+      en: 'The Paper (Hot News)',
+      zh: '澎湃新闻',
+    },
+    icon: 'icons/thepaper.png',
+    page: 'https://www.thepaper.cn',
+    homepage: 'https://www.thepaper.cn',
+  },
+  {
+    id: 'zhihu-hot-topic',
+    title: {
+      en: 'Zhihu (Hot Topic)',
+      zh: '知乎(热榜)',
+    },
+    icon: 'icons/zhihu.png',
+    page: 'https://www.zhihu.com/hot',
+    homepage: 'https://www.zhihu.com',
+  },
 ] as const
 
 export type TrendingType = typeof serviceDefinitions[number]['id']

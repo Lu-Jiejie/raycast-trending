@@ -50,5 +50,5 @@ export function useDouyinHotSearch() {
       }
     })
   }
-  return useCachedTrending('douyin-hot-search', fetchDouyinHotSearch, 1000 * 60 * 5)
+  return useCachedTrending('douyin-hot-search', fetchDouyinHotSearch)
 }

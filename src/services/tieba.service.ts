@@ -19,5 +19,5 @@ export function useTiebaHotTopic() {
     })
   }
 
-  return useCachedTrending('tieba-hot-topic', fetchTiebaHotTopic, 1000 * 60 * 5)
+  return useCachedTrending('tieba-hot-topic', fetchTiebaHotTopic)
 }

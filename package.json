@@ -78,6 +78,24 @@
       "description": "Whether to show trending topics from Weibo (Hot Search)."
     },
     {
+      "name": "show-thepaper-hot-news",
+      "title": "Show The Paper (Hot News)",
+      "label": "The Paper (Hot News)",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "description": "Whether to show trending topics from The Paper (Hot News)."
+    },
+    {
+      "name": "show-zhihu-hot-topic",
+      "title": "Show Zhihu (Hot Topic)",
+      "label": "Zhihu (Hot Topic)",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "description": "Whether to show trending topics from Zhihu (Hot Topic)."
+    },
+    {
       "name": "primaryService",
       "title": "Primary Service",
       "description": "Choose a service to display at the top of the list.",
@@ -112,6 +130,14 @@
         {
           "title": "Weibo (Hot Search)",
           "value": "weibo-hot-search"
+        },
+        {
+          "title": "The Paper (Hot News)",
+          "value": "thepaper-hot-news"
+        },
+        {
+          "title": "Zhihu (Hot Topic)",
+          "value": "zhihu-hot-topic"
         }
       ]
     },

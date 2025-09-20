@@ -1,3 +1,4 @@
+import type { TrendingType } from '../services/definitions'
 import type { TopicItem } from '../types'
 import { useCachedState } from '@raycast/utils'
 import { useEffect, useMemo, useState } from 'react'
@@ -7,7 +8,7 @@ const minTTL = 1000 * 10 // minimum 10 seconds
 const ttl = settings.ttl
 
 export function useCachedTrending(
-  cacheKey: string,
+  cacheKey: TrendingType,
   handler: () => Promise<TopicItem[]>,
 ) {
   const [cache, setCache] = useCachedState<{
