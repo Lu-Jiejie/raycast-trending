@@ -1,4 +1,4 @@
-import type { TrendingType } from '../services/definitions'
+import type { SourceId } from '../sources'
 import type { TopicItem } from '../types'
 import {
   Action,
@@ -11,9 +11,9 @@ import {
   Toast,
 } from '@raycast/api'
 import { useEffect, useMemo, useState } from 'react'
-import { useTrending } from '../hooks/useTrending'
+import { useTrending } from '../hooks/useTrendingById'
 import { settings } from '../logic/settings'
-import { serviceDefinitions } from '../services/definitions'
+import { sourceInfo } from '../sources'
 
 const lang = settings.lang
 const i18n = {
@@ -45,13 +45,13 @@ const i18n = {
     en: 'More',
     zh: '更多',
   },
-  searchPlaceholder(serviceName: string) {
+  searchPlaceholder(sourceName: string) {
     return {
-      en: `Search in ${serviceName}...`,
-      zh: `在 ${serviceName} 中搜索 ...`,
+      en: `Search in ${sourceName}...`,
+      zh: `在 ${sourceName} 中搜索 ...`,
     }
   },
-  selectTrendingType: {
+  selectSourceId: {
     en: 'Select Trending Type',
     zh: '选择热点分类',
   },
@@ -98,15 +98,14 @@ function formatDate(date: string | number) {
 }
 
 interface TrendingTopicsProps {
-  defaultService?: TrendingType
+  defaultSource?: SourceId
 }
-
-export default function TrendingTopics({ defaultService }: TrendingTopicsProps = {}) {
-  const enabledServices = settings.enabledServices
-  const primaryService = settings.primaryService || enabledServices[0]?.id
-  const [trendingType, setTrendingType] = useState<TrendingType>(defaultService || primaryService || 'zhihu-hot-topic')
+export default function TrendingTopics({ defaultSource }: TrendingTopicsProps = {}) {
+  const enabledSources = settings.enabledSources
+  const primarySource = settings.primarySource || enabledSources[0]?.id
+  const [trendingType, setSourceId] = useState<SourceId>(defaultSource || primarySource || 'zhihu-hot-topic')
   const { data, isLoading, refresh, timestamp, error } = useTrending(trendingType)
-  const definition = serviceDefinitions.find(s => s.id === trendingType)
+  const definition = sourceInfo.find(s => s.id === trendingType)
   const title = definition!.title[lang]
   const icon = definition!.icon
 
@@ -235,12 +234,12 @@ export default function TrendingTopics({ defaultService }: TrendingTopicsProps =
       )}
       searchBarAccessory={(
         <List.Dropdown
-          tooltip={i18n.selectTrendingType[lang]}
+          tooltip={i18n.selectSourceId[lang]}
           value={trendingType}
-          onChange={value => setTrendingType(value as TrendingType)}
+          onChange={value => setSourceId(value as SourceId)}
         >
-          {enabledServices.map(service => (
-            <List.Dropdown.Item key={service.id} title={service.title[lang]} value={service.id} />
+          {enabledSources.map(source => (
+            <List.Dropdown.Item key={source.id} title={source.title[lang]} value={source.id} />
           ))}
         </List.Dropdown>
       )}

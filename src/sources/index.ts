@@ -1,4 +1,12 @@
-export const serviceDefinitions = [
+import * as bilibili from './bilibili'
+import * as douyin from './douyin'
+import * as thepaper from './thepaper'
+import * as tieba from './tieba'
+import * as toutiao from './toutiao'
+import * as weibo from './weibo'
+import * as zhihu from './zhihu'
+
+export const sourceInfo = [
   {
     id: 'bilibili-hot-search',
     title: {
@@ -8,6 +16,7 @@ export const serviceDefinitions = [
     icon: 'icons/bilibili.png',
     page: 'https://search.bilibili.com/all',
     homepage: 'https://www.bilibili.com',
+    hook: bilibili.useBilibiliHotSearch,
   },
   {
     id: 'bilibili-hot-video',
@@ -18,6 +27,7 @@ export const serviceDefinitions = [
     icon: 'icons/bilibili.png',
     page: 'https://www.bilibili.com/v/popular/all',
     homepage: 'https://www.bilibili.com',
+    hook: bilibili.useBilibiliHotVideo,
   },
   {
     id: 'bilibili-ranking',
@@ -28,6 +38,7 @@ export const serviceDefinitions = [
     icon: 'icons/bilibili.png',
     page: 'https://www.bilibili.com/v/popular/rank/all',
     homepage: 'https://www.bilibili.com',
+    hook: bilibili.useBilibiliRanking,
   },
   {
     id: 'douyin-hot-search',
@@ -38,6 +49,7 @@ export const serviceDefinitions = [
     icon: 'icons/douyin.png',
     page: 'https://www.douyin.com/hot',
     homepage: 'https://www.douyin.com',
+    hook: douyin.useDouyinHotSearch,
   },
   {
     id: 'thepaper-hot-news',
@@ -48,6 +60,7 @@ export const serviceDefinitions = [
     icon: 'icons/thepaper.png',
     page: 'https://www.thepaper.cn',
     homepage: 'https://www.thepaper.cn',
+    hook: thepaper.useThepaperHotNews,
   },
   {
     id: 'tieba-hot-topic',
@@ -58,6 +71,7 @@ export const serviceDefinitions = [
     icon: 'icons/tieba.png',
     page: 'https://tieba.baidu.com/hottopic/browse/topicList?res_type=1',
     homepage: 'https://tieba.baidu.com',
+    hook: tieba.useTiebaHotTopic,
   },
   {
     id: 'toutiao-hot-news',
@@ -68,6 +82,7 @@ export const serviceDefinitions = [
     icon: 'icons/toutiao.png',
     page: 'https://www.toutiao.com',
     homepage: 'https://www.toutiao.com',
+    hook: toutiao.useToutiaoHotNews,
   },
   {
     id: 'weibo-hot-search',
@@ -78,6 +93,7 @@ export const serviceDefinitions = [
     icon: 'icons/weibo.png',
     page: 'https://weibo.com/hot/search',
     homepage: 'https://www.weibo.com',
+    hook: weibo.useWeiboHotSearch,
   },
   {
     id: 'zhihu-hot-topic',
@@ -88,8 +104,9 @@ export const serviceDefinitions = [
     icon: 'icons/zhihu.png',
     page: 'https://www.zhihu.com/hot',
     homepage: 'https://www.zhihu.com',
+    hook: zhihu.useZhihuHotTopic,
   },
 ] as const
 
-export type TrendingType = typeof serviceDefinitions[number]['id']
-export type ServiceConfig = typeof serviceDefinitions[number]
+export type SourceId = typeof sourceInfo[number]['id']
+export type SourceInfo = typeof sourceInfo[number]

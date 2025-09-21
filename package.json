@@ -22,9 +22,9 @@
       "mode": "view"
     },
     {
-      "name": "trending-services",
-      "title": "Trending by Service",
-      "description": "Choose service to view trending topics",
+      "name": "trending-by-source",
+      "title": "Trending by Source",
+      "description": "Choose source to view trending topics",
       "mode": "view"
     }
   ],
@@ -111,9 +111,9 @@
       "description": "Whether to show trending topics from Zhihu (Hot Topic)."
     },
     {
-      "name": "primaryService",
-      "title": "Primary Service",
-      "description": "Choose a service to display at the top of the list.",
+      "name": "primarySource",
+      "title": "Primary Source",
+      "description": "Choose a source to display at the top of the list.",
       "type": "dropdown",
       "required": false,
       "default": "bilibili-hot-search",
@@ -197,7 +197,8 @@
     "@raycast/api": "^1.103.1",
     "@raycast/utils": "^2.2.1",
     "axios": "^1.12.2",
-    "axios-retry": "^4.5.0"
+    "axios-retry": "^4.5.0",
+    "cheerio": "^1.1.2"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^5.3.0",

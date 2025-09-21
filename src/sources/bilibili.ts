@@ -1,27 +1,24 @@
 import type { TopicItem } from '../types'
 import { useCachedTrending } from '../hooks/useCachedTrending'
 import axios from '../logic/axios'
+import { TagColor } from '../types'
 
 export function useBilibiliHotSearch() {
   const fetchBilibiliHotSearch = async () => {
     const { data } = await axios.get('https://s.search.bilibili.com/main/hotword?limit=30')
+
+    const labelMap = {
+      4: { value: '新', color: TagColor.Yellow },
+      5: { value: '热', color: TagColor.Red },
+      7: { value: '直播中', color: TagColor.Yellow },
+      9: { value: '梗', color: TagColor.Yellow },
+      11: { value: '话题', color: TagColor.Yellow },
+      12: { value: '独家', color: TagColor.Yellow },
+    }
+
     return data.list.map((item: any): TopicItem => {
-      let tag: string | undefined
-      switch (item.word_type) {
-        case 4: tag = '新'
-          break
-        case 5: tag = '热'
-          break
-        case 7: tag = '直播中'
-          break
-        case 9: tag = '梗'
-          break
-        case 11: tag = '话题'
-          break
-        case 12: tag = '独家'
-          break
-        default: tag = undefined
-      }
+      const tag = labelMap[item.label as keyof typeof labelMap] || {}
+
       return {
         type: 'bilibili-hot-search',
         id: item.hot_id.toString(),

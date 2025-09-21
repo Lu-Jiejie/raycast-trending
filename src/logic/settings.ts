@@ -1,33 +1,33 @@
-import type { ServiceConfig } from '../services/definitions'
+import type { SourceInfo } from '../sources'
 import { getPreferenceValues } from '@raycast/api'
-import { serviceDefinitions } from '../services/definitions'
+import { sourceInfo } from '../sources'
 
 const preferences = getPreferenceValues<Preferences>()
 
-export function getEnabledServices(): ServiceConfig[] {
-  const enabledServices = serviceDefinitions.filter(
-    service => preferences[`show-${service.id}`],
+export function getEnabledSources(): SourceInfo[] {
+  const enabledSources = sourceInfo.filter(
+    source => preferences[`show-${source.id}`],
   )
-
-  const primaryServiceId = preferences.primaryService
-  if (primaryServiceId) {
-    const primaryService = enabledServices.find(
-      service => service.id === primaryServiceId,
+  console.log(enabledSources)
+  const primarySourceId = preferences.primarySource
+  if (primarySourceId) {
+    const primarySource = enabledSources.find(
+      source => source.id === primarySourceId,
     )
-    if (primaryService) {
+    if (primarySource) {
       return [
-        primaryService,
-        ...enabledServices.filter(service => service.id !== primaryServiceId),
+        primarySource,
+        ...enabledSources.filter(source => source.id !== primarySourceId),
       ]
     }
   }
 
-  return enabledServices
+  return enabledSources
 }
 
 export const settings = {
-  enabledServices: getEnabledServices(),
+  enabledSources: getEnabledSources(),
   ttl: +(preferences.ttl) * 60 * 1000 || 5 * 60 * 1000,
   lang: preferences.lang || 'en',
-  primaryService: preferences.primaryService,
+  primarySource: preferences.primarySource,
 }

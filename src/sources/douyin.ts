@@ -1,7 +1,7 @@
 import type { TopicItem } from '../types'
-import { Color } from '@raycast/api'
 import { useCachedTrending } from '../hooks/useCachedTrending'
 import axios from '../logic/axios'
+import { TagColor } from '../types'
 
 export function useDouyinHotSearch() {
   const fetchDouyinHotSearch = async () => {
@@ -14,26 +14,26 @@ export function useDouyinHotSearch() {
     })
     const labelMap = [
       {},
-      { value: '新', color: Color.Magenta },
-      { value: '商', color: Color.Blue },
-      { value: '热', color: Color.Red },
-      { value: '爆', color: Color.Red },
-      { value: '首发', color: Color.Red },
+      { value: '新', color: TagColor.Magenta },
+      { value: '商', color: TagColor.Blue },
+      { value: '热', color: TagColor.Red },
+      { value: '爆', color: TagColor.Red },
+      { value: '首发', color: TagColor.Red },
       {},
-      { value: '同城', color: Color.Green },
-      { value: '独家', color: Color.Red },
-      { value: '挑战', color: Color.Green },
-      { value: '当事人', color: Color.Red },
-      { value: '剧集', color: Color.Yellow },
-      { value: '电影', color: Color.Yellow },
-      { value: '综艺', color: Color.Yellow },
+      { value: '同城', color: TagColor.Green },
+      { value: '独家', color: TagColor.Red },
+      { value: '挑战', color: TagColor.Green },
+      { value: '当事人', color: TagColor.Red },
+      { value: '剧集', color: TagColor.Yellow },
+      { value: '电影', color: TagColor.Yellow },
+      { value: '综艺', color: TagColor.Yellow },
       {},
-      { value: '晚会', color: Color.Yellow },
-      { value: '辟谣', color: Color.Red },
-      { value: '热议', color: Color.Red },
+      { value: '晚会', color: TagColor.Yellow },
+      { value: '辟谣', color: TagColor.Red },
+      { value: '热议', color: TagColor.Red },
       {},
       {},
-      { value: '解读', color: Color.Red },
+      { value: '解读', color: TagColor.Red },
     ]
     return data.data.word_list.slice(0, 30).map((item: any): TopicItem => {
       const tag = labelMap[item.label]

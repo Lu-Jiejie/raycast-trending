@@ -1,41 +1,40 @@
 import { readFile, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { serviceDefinitions } from '../src/services/definitions'
+// import { sourceInfo } from '../src/sources'
 
-// ESM-compatible way to get the directory name
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 async function updatePreferences() {
   const packageJsonPath = join(__dirname, '..', 'package.json')
   const packageJson = JSON.parse(await readFile(packageJsonPath, 'utf-8'))
-
+  const sourceInfo = await getSourceInfo() as { id: string, title: { en: string } }[]
   const newPreferences = []
 
-  // Generate a checkbox for each service from the single source of truth
-  for (const service of serviceDefinitions) {
+  // Generate a checkbox for each source from the single source of truth
+  for (const source of sourceInfo) {
     newPreferences.push({
-      name: `show-${service.id}`,
-      title: `Show ${service.title.en}`,
-      label: service.title.en,
+      name: `show-${source.id}`,
+      title: `Show ${source.title.en}`,
+      label: source.title.en,
       type: 'checkbox',
       required: false,
       default: true,
-      description: `Whether to show trending topics from ${service.title.en}.`,
+      description: `Whether to show trending topics from ${source.title.en}.`,
     })
   }
 
-  // Generate a dropdown to select the primary service
+  // Generate a dropdown to select the primary source
   newPreferences.push({
-    name: 'primaryService',
-    title: 'Primary Service',
-    description: 'Choose a service to display at the top of the list.',
+    name: 'primarySource',
+    title: 'Primary Source',
+    description: 'Choose a source to display at the top of the list.',
     type: 'dropdown',
     required: false,
-    default: serviceDefinitions[0].id,
-    data: serviceDefinitions.map(service => ({
-      title: service.title.en,
-      value: service.id,
+    default: sourceInfo[0].id,
+    data: sourceInfo.map(source => ({
+      title: source.title.en,
+      value: source.id,
     })),
   }, {
     name: 'ttl',
@@ -64,6 +63,20 @@ async function updatePreferences() {
 `)
 
   console.log('Successfully updated package.json preferences from the single source of truth!')
+}
+
+// avoid react import error
+async function getSourceInfo() {
+  const content = await readFile(join(__dirname, '../src/sources/index.ts'), 'utf-8')
+
+  const match = content.match(/export const sourceInfo = (\[[\s\S]*?\]) as const/)
+  if (match) {
+    // remove hook property
+    const arrayStr = match[1].replace(/,?\s*hook:[^,}]+/g, '')
+    // eslint-disable-next-line no-eval
+    const sourceInfo = eval(`(${arrayStr})`)
+    return sourceInfo
+  }
 }
 
 updatePreferences()

@@ -1,7 +1,7 @@
 import type { TopicItem } from '../types'
-import { Color } from '@raycast/api'
 import { useCachedTrending } from '../hooks/useCachedTrending'
 import axios from '../logic/axios'
+import { TagColor } from '../types'
 
 export function useWeiboHotSearch() {
   const fetchWeiboHotSearch = async (): Promise<TopicItem[]> => {
@@ -12,10 +12,10 @@ export function useWeiboHotSearch() {
       },
     })
     const tagMap = {
-      1: { value: '新', color: Color.Red },
-      2: { value: '热', color: Color.Yellow },
-      4: { value: '爆', color: Color.Red },
-      16: { value: '沸', color: Color.Orange },
+      1: { value: '新', color: TagColor.Red },
+      2: { value: '热', color: TagColor.Yellow },
+      4: { value: '爆', color: TagColor.Red },
+      16: { value: '沸', color: TagColor.Orange },
     }
 
     return (data.data.cards[0].card_group as any[])
