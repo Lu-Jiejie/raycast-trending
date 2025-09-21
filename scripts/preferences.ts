@@ -32,14 +32,11 @@ async function updatePreferences() {
     description: 'Choose a service to display at the top of the list.',
     type: 'dropdown',
     required: false,
-    default: 'default',
-    data: [
-      { title: 'Default Order', value: 'default' },
-      ...serviceDefinitions.map(service => ({
-        title: service.title.en,
-        value: service.id,
-      })),
-    ],
+    default: serviceDefinitions[0].id,
+    data: serviceDefinitions.map(service => ({
+      title: service.title.en,
+      value: service.id,
+    })),
   }, {
     name: 'ttl',
     title: 'Cache Duration',

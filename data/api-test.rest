@@ -28,3 +28,6 @@ GET https://cache.thepaper.cn/contentapi/wwwIndex/rightSidebar
 
 ### Zhihu Hot Topic
 GET https://www.zhihu.com/api/v3/feed/topstory/hot-list-web?limit=30&desktop=true
+
+### Toutiao Hot News
+GET https://www.toutiao.com/hot-event/hot-board/?origin=toutiao_pc

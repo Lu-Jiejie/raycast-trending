@@ -5,6 +5,7 @@ import { serviceDefinitions } from './definitions'
 import * as douyin from './douyin.service'
 import * as thepaper from './thepaper.service'
 import * as tieba from './tieba.service'
+import * as toutiao from './toutiao.service'
 import * as weibo from './weibo.service'
 import * as zhihu from './zhihu.service'
 
@@ -15,6 +16,7 @@ const allHooks = {
   ...tieba,
   ...weibo,
   ...zhihu,
+  ...toutiao,
 }
 
 export const trendingHookMap = Object.fromEntries(

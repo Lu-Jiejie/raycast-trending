@@ -30,16 +30,6 @@ export const serviceDefinitions = [
     homepage: 'https://www.bilibili.com',
   },
   {
-    id: 'tieba-hot-topic',
-    title: {
-      en: 'Tieba (Hot Topic)',
-      zh: '百度贴吧(热议)',
-    },
-    icon: 'icons/tieba.png',
-    page: 'https://tieba.baidu.com/hottopic/browse/topicList?res_type=1',
-    homepage: 'https://tieba.baidu.com',
-  },
-  {
     id: 'douyin-hot-search',
     title: {
       en: 'Douyin (Hot Search)',
@@ -50,16 +40,6 @@ export const serviceDefinitions = [
     homepage: 'https://www.douyin.com',
   },
   {
-    id: 'weibo-hot-search',
-    title: {
-      en: 'Weibo (Hot Search)',
-      zh: '微博(热搜)',
-    },
-    icon: 'icons/weibo.png',
-    page: 'https://weibo.com/hot/search',
-    homepage: 'https://www.weibo.com',
-  },
-  {
     id: 'thepaper-hot-news',
     title: {
       en: 'The Paper (Hot News)',
@@ -68,6 +48,36 @@ export const serviceDefinitions = [
     icon: 'icons/thepaper.png',
     page: 'https://www.thepaper.cn',
     homepage: 'https://www.thepaper.cn',
+  },
+  {
+    id: 'tieba-hot-topic',
+    title: {
+      en: 'Tieba (Hot Topic)',
+      zh: '百度贴吧(热议)',
+    },
+    icon: 'icons/tieba.png',
+    page: 'https://tieba.baidu.com/hottopic/browse/topicList?res_type=1',
+    homepage: 'https://tieba.baidu.com',
+  },
+  {
+    id: 'toutiao-hot-news',
+    title: {
+      en: 'Toutiao (Hot News)',
+      zh: '今日头条',
+    },
+    icon: 'icons/toutiao.png',
+    page: 'https://www.toutiao.com',
+    homepage: 'https://www.toutiao.com',
+  },
+  {
+    id: 'weibo-hot-search',
+    title: {
+      en: 'Weibo (Hot Search)',
+      zh: '微博(热搜)',
+    },
+    icon: 'icons/weibo.png',
+    page: 'https://weibo.com/hot/search',
+    homepage: 'https://www.weibo.com',
   },
   {
     id: 'zhihu-hot-topic',

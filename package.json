@@ -16,9 +16,15 @@
   "icon": "icon.png",
   "commands": [
     {
-      "name": "trending-topics",
-      "title": "Trending Topics",
-      "description": "Explore trending topics",
+      "name": "trending",
+      "title": "Trending",
+      "description": "View trending topics",
+      "mode": "view"
+    },
+    {
+      "name": "trending-services",
+      "title": "Trending by Service",
+      "description": "Choose service to view trending topics",
       "mode": "view"
     }
   ],
@@ -51,15 +57,6 @@
       "description": "Whether to show trending topics from Bilibili (Ranking)."
     },
     {
-      "name": "show-tieba-hot-topic",
-      "title": "Show Tieba (Hot Topic)",
-      "label": "Tieba (Hot Topic)",
-      "type": "checkbox",
-      "required": false,
-      "default": true,
-      "description": "Whether to show trending topics from Tieba (Hot Topic)."
-    },
-    {
       "name": "show-douyin-hot-search",
       "title": "Show Douyin (Hot Search)",
       "label": "Douyin (Hot Search)",
@@ -69,15 +66,6 @@
       "description": "Whether to show trending topics from Douyin (Hot Search)."
     },
     {
-      "name": "show-weibo-hot-search",
-      "title": "Show Weibo (Hot Search)",
-      "label": "Weibo (Hot Search)",
-      "type": "checkbox",
-      "required": false,
-      "default": true,
-      "description": "Whether to show trending topics from Weibo (Hot Search)."
-    },
-    {
       "name": "show-thepaper-hot-news",
       "title": "Show The Paper (Hot News)",
       "label": "The Paper (Hot News)",
@@ -85,6 +73,33 @@
       "required": false,
       "default": true,
       "description": "Whether to show trending topics from The Paper (Hot News)."
+    },
+    {
+      "name": "show-tieba-hot-topic",
+      "title": "Show Tieba (Hot Topic)",
+      "label": "Tieba (Hot Topic)",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "description": "Whether to show trending topics from Tieba (Hot Topic)."
+    },
+    {
+      "name": "show-toutiao-hot-news",
+      "title": "Show Toutiao (Hot News)",
+      "label": "Toutiao (Hot News)",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "description": "Whether to show trending topics from Toutiao (Hot News)."
+    },
+    {
+      "name": "show-weibo-hot-search",
+      "title": "Show Weibo (Hot Search)",
+      "label": "Weibo (Hot Search)",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "description": "Whether to show trending topics from Weibo (Hot Search)."
     },
     {
       "name": "show-zhihu-hot-topic",
@@ -101,12 +116,8 @@
       "description": "Choose a service to display at the top of the list.",
       "type": "dropdown",
       "required": false,
-      "default": "default",
+      "default": "bilibili-hot-search",
       "data": [
-        {
-          "title": "Default Order",
-          "value": "default"
-        },
         {
           "title": "Bilibili (Hot Search)",
           "value": "bilibili-hot-search"
@@ -120,20 +131,24 @@
           "value": "bilibili-ranking"
         },
         {
-          "title": "Tieba (Hot Topic)",
-          "value": "tieba-hot-topic"
-        },
-        {
           "title": "Douyin (Hot Search)",
           "value": "douyin-hot-search"
         },
         {
-          "title": "Weibo (Hot Search)",
-          "value": "weibo-hot-search"
-        },
-        {
           "title": "The Paper (Hot News)",
           "value": "thepaper-hot-news"
+        },
+        {
+          "title": "Tieba (Hot Topic)",
+          "value": "tieba-hot-topic"
+        },
+        {
+          "title": "Toutiao (Hot News)",
+          "value": "toutiao-hot-news"
+        },
+        {
+          "title": "Weibo (Hot Search)",
+          "value": "weibo-hot-search"
         },
         {
           "title": "Zhihu (Hot Topic)",

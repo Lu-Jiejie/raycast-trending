@@ -10,7 +10,7 @@ export function getEnabledServices(): ServiceConfig[] {
   )
 
   const primaryServiceId = preferences.primaryService
-  if (primaryServiceId && primaryServiceId !== 'default') {
+  if (primaryServiceId) {
     const primaryService = enabledServices.find(
       service => service.id === primaryServiceId,
     )
@@ -29,4 +29,5 @@ export const settings = {
   enabledServices: getEnabledServices(),
   ttl: +(preferences.ttl) * 60 * 1000 || 5 * 60 * 1000,
   lang: preferences.lang || 'en',
+  primaryService: preferences.primaryService,
 }

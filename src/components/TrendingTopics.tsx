@@ -1,5 +1,5 @@
-import type { TrendingType } from './services/definitions'
-import type { TopicItem } from './types'
+import type { TrendingType } from '../services/definitions'
+import type { TopicItem } from '../types'
 import {
   Action,
   ActionPanel,
@@ -11,9 +11,9 @@ import {
   Toast,
 } from '@raycast/api'
 import { useEffect, useMemo, useState } from 'react'
-import { useTrending } from './hooks/useTrending'
-import { settings } from './logic/settings'
-import { serviceDefinitions } from './services/definitions'
+import { useTrending } from '../hooks/useTrending'
+import { settings } from '../logic/settings'
+import { serviceDefinitions } from '../services/definitions'
 
 const lang = settings.lang
 const i18n = {
@@ -97,9 +97,14 @@ function formatDate(date: string | number) {
   return d.toISOString().replace('T', ' ').slice(0, 16)
 }
 
-export default function Command() {
+interface TrendingTopicsProps {
+  defaultService?: TrendingType
+}
+
+export default function TrendingTopics({ defaultService }: TrendingTopicsProps = {}) {
   const enabledServices = settings.enabledServices
-  const [trendingType, setTrendingType] = useState<TrendingType>('zhihu-hot-topic')
+  const primaryService = settings.primaryService || enabledServices[0]?.id
+  const [trendingType, setTrendingType] = useState<TrendingType>(defaultService || primaryService || 'zhihu-hot-topic')
   const { data, isLoading, refresh, timestamp, error } = useTrending(trendingType)
   const definition = serviceDefinitions.find(s => s.id === trendingType)
   const title = definition!.title[lang]
@@ -153,9 +158,7 @@ export default function Command() {
           break
         case 'weibo-hot-search':
           accessories = [
-            { tag: {
-              value: item.extra?.tag.value,
-              color: item.extra?.tag.color,
+            { tag: { value: item.extra?.tag?.value, color: item.extra?.tag?.color,
             } },
             { icon: Icon.LineChart, text: formatCompactNumber(item.extra?.hotValue || 0) },
           ]
@@ -171,6 +174,11 @@ export default function Command() {
           accessories = [
             { icon: Icon.LineChart, text: formatCompactNumber(item.extra?.hotValue || 0) },
           ]
+          break
+        case 'toutiao-hot-news':
+          accessories = [{
+            tag: { value: item.extra?.tag?.value, color: item.extra?.tag?.color },
+          }]
           break
       }
 
