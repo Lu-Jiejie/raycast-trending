@@ -1,4 +1,4 @@
-import type { SourceId } from '../sources'
+import type { SourceType } from '../sources'
 import type { TopicItem } from '../types'
 import {
   Action,
@@ -53,9 +53,9 @@ const i18n = {
       zh: `在 ${sourceName} 中搜索 ...`,
     }
   },
-  selectSourceId: {
-    en: 'Select Trending Type',
-    zh: '选择热点分类',
+  selectSource: {
+    en: 'Select Source',
+    zh: '选择热点源',
   },
   trendingTopics: {
     en: 'Trending Topics',
@@ -100,12 +100,12 @@ function formatDate(date: string | number) {
 }
 
 interface TrendingTopicsProps {
-  defaultSource?: SourceId
+  defaultSource?: SourceType
 }
 export default function TrendingTopics({ defaultSource }: TrendingTopicsProps = {}) {
   const enabledSources = getEnabledSources()
   const primarySource = preferences.primarySource || enabledSources[0]?.id
-  const [trendingType, setSourceId] = useState<SourceId>(defaultSource || primarySource || 'zhihu-hot-topic')
+  const [trendingType, setSourceType] = useState<SourceType>(defaultSource || primarySource)
   const { data, isLoading, refresh, timestamp, error } = useTrending(trendingType)
   const definition = sourceInfo.find(s => s.id === trendingType)
   const title = definition!.title[lang]
@@ -233,9 +233,9 @@ export default function TrendingTopics({ defaultSource }: TrendingTopicsProps = 
       )}
       searchBarAccessory={(
         <List.Dropdown
-          tooltip={i18n.selectSourceId[lang]}
+          tooltip={i18n.selectSource[lang]}
           value={trendingType}
-          onChange={value => setSourceId(value as SourceId)}
+          onChange={value => setSourceType(value as SourceType)}
         >
           {enabledSources.map(source => (
             <List.Dropdown.Item key={source.id} title={source.title[lang]} value={source.id} />

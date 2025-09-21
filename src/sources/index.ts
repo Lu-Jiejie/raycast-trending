@@ -108,5 +108,5 @@ export const sourceInfo = [
   },
 ] as const
 
-export type SourceId = typeof sourceInfo[number]['id']
+export type SourceType = typeof sourceInfo[number]['id']
 export type SourceInfo = typeof sourceInfo[number]

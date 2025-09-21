@@ -1,4 +1,4 @@
-import type { SourceId } from '../sources'
+import type { SourceType } from '../sources'
 import type { TopicItem } from '../types'
 import { getPreferenceValues } from '@raycast/api'
 import { useCachedState } from '@raycast/utils'
@@ -7,7 +7,7 @@ import { useEffect, useMemo, useState } from 'react'
 const minTTL = 1000 * 10 // minimum 10 seconds
 
 export function useCachedTrending(
-  cacheKey: SourceId,
+  cacheKey: SourceType,
   handler: () => Promise<TopicItem[]>,
 ) {
   const preferences = getPreferenceValues<Preferences>()

@@ -1,10 +1,10 @@
-import type { TrendingType } from './sources/definitions'
+import type { SourceType } from './sources'
 
 export interface TopicItem {
   id: string
   title: string
   url: string
-  type: TrendingType
+  type: SourceType
   description?: string
   extra?: Record<string, any>
 }
