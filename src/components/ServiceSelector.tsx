@@ -33,6 +33,7 @@ export default function ServiceSelector() {
             key={service.id}
             icon={service.icon}
             title={service.title[lang]}
+            keywords={[service.title.en, service.title.zh]}
             actions={(
               <ActionPanel>
                 <Action.Push
