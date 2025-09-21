@@ -105,6 +105,7 @@ interface TrendingTopicsProps {
 export default function TrendingTopics({ defaultSource }: TrendingTopicsProps = {}) {
   const enabledSources = getEnabledSources()
   const primarySource = preferences.primarySource || enabledSources[0]?.id
+  // const primarySource: SourceType = 'toutiao-hot-news'
   const [trendingType, setSourceType] = useState<SourceType>(defaultSource || primarySource)
   const { data, isLoading, refresh, timestamp, error } = useTrending(trendingType)
   const definition = sourceInfo.find(s => s.id === trendingType)
@@ -128,9 +129,7 @@ export default function TrendingTopics({ defaultSource }: TrendingTopicsProps = 
 
       switch (trendingType) {
         case 'bilibili-hot-search':
-          accessories = [{
-            tag: { value: item.extra?.tag.value, color: item.extra?.tag.color },
-          }]
+          accessories = [{ tag: { value: item.extra?.tag?.value, color: item.extra?.tag?.color } }]
           break
         case 'bilibili-hot-video':
         case 'bilibili-ranking':
@@ -147,17 +146,13 @@ export default function TrendingTopics({ defaultSource }: TrendingTopicsProps = 
           break
         case 'douyin-hot-search':
           accessories = [
-            { tag: {
-              value: item.extra?.tag.value,
-              color: item.extra?.tag.color,
-            } },
+            { tag: { value: item.extra?.tag?.value, color: item.extra?.tag?.color } },
             { icon: Icon.LineChart, text: formatCompactNumber(item.extra?.hotValue || 0) },
           ]
           break
         case 'weibo-hot-search':
           accessories = [
-            { tag: { value: item.extra?.tag?.value, color: item.extra?.tag?.color,
-            } },
+            { tag: { value: item.extra?.tag?.value, color: item.extra?.tag?.color } },
             { icon: Icon.LineChart, text: formatCompactNumber(item.extra?.hotValue || 0) },
           ]
           break
@@ -174,9 +169,10 @@ export default function TrendingTopics({ defaultSource }: TrendingTopicsProps = 
           ]
           break
         case 'toutiao-hot-news':
-          accessories = [{
-            tag: { value: item.extra?.tag?.value, color: item.extra?.tag?.color },
-          }]
+          accessories = [
+            { tag: { value: item.extra?.tag?.value, color: item.extra?.tag?.color },
+            },
+          ]
           break
       }
 

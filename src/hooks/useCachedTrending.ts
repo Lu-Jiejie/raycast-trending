@@ -22,9 +22,10 @@ export function useCachedTrending(
 
   const refresh = async (force = false) => {
     // console.log(`[${cacheKey}] Refreshing...`)
+    // console.log(force, Date.now() - cache.timestamp, ttl, minTTL)
     if (
       (force && Date.now() - cache.timestamp < minTTL)
-      && (cache.data && Date.now() - cache.timestamp <= ttl)
+      || (!force && cache.data && Date.now() - cache.timestamp <= ttl)
     ) {
       // console.log(`[${cacheKey}] Using cached data`)
       setIsLoading(false)

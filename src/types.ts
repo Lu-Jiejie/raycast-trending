@@ -11,8 +11,6 @@ export interface TopicItem {
 
 export enum TagColor {
   // more red rather than red
-  DeepRed = '#FF3B30',
-  // extend from Raycast's built-in colors
   Blue = 'raycast-blue',
   Green = 'raycast-green',
   Magenta = 'raycast-magenta',

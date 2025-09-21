@@ -18,10 +18,10 @@ Cookie: xxx
 GET https://www.douyin.com/passport/general/login_guiding_strategy/?aid=6383
 
 ### Weibo Hot Search
-GET https://m.weibo.cn/api/container/getIndex?containerid=106003%26filter_type%3Drealtimehot
-Referer: https://s.weibo.com/top/summary?cate=realtimehot
-X-Requested-With: XMLHttpRequest
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/
+GET https://weibo.com/ajax/side/hotSearch
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+Referer: https://weibo.com/
+Accept: application/json
 
 ### The Paper Hot News
 GET https://cache.thepaper.cn/contentapi/wwwIndex/rightSidebar
@@ -31,3 +31,5 @@ GET https://www.zhihu.com/api/v3/feed/topstory/hot-list-web?limit=30&desktop=tru
 
 ### Toutiao Hot News
 GET https://www.toutiao.com/hot-event/hot-board/?origin=toutiao_pc
+
+
