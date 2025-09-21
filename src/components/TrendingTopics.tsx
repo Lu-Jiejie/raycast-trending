@@ -4,6 +4,7 @@ import {
   Action,
   ActionPanel,
   Color,
+  getPreferenceValues,
   Icon,
   Image,
   List,
@@ -12,10 +13,11 @@ import {
 } from '@raycast/api'
 import { useEffect, useMemo, useState } from 'react'
 import { useTrending } from '../hooks/useTrendingById'
-import { settings } from '../logic/settings'
+import { getEnabledSources } from '../logic'
 import { sourceInfo } from '../sources'
 
-const lang = settings.lang
+const preferences = getPreferenceValues<Preferences>()
+const lang = preferences.lang || 'en'
 const i18n = {
   refresh: {
     en: 'Refresh',
@@ -101,8 +103,8 @@ interface TrendingTopicsProps {
   defaultSource?: SourceId
 }
 export default function TrendingTopics({ defaultSource }: TrendingTopicsProps = {}) {
-  const enabledSources = settings.enabledSources
-  const primarySource = settings.primarySource || enabledSources[0]?.id
+  const enabledSources = getEnabledSources()
+  const primarySource = preferences.primarySource || enabledSources[0]?.id
   const [trendingType, setSourceId] = useState<SourceId>(defaultSource || primarySource || 'zhihu-hot-topic')
   const { data, isLoading, refresh, timestamp, error } = useTrending(trendingType)
   const definition = sourceInfo.find(s => s.id === trendingType)
@@ -127,10 +129,7 @@ export default function TrendingTopics({ defaultSource }: TrendingTopicsProps = 
       switch (trendingType) {
         case 'bilibili-hot-search':
           accessories = [{
-            tag: {
-              value: item.extra?.tag,
-              color: item.extra?.tag === '热' ? Color.Red : Color.Yellow,
-            },
+            tag: { value: item.extra?.tag.value, color: item.extra?.tag.color },
           }]
           break
         case 'bilibili-hot-video':

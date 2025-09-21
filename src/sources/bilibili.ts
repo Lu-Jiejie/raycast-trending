@@ -10,15 +10,15 @@ export function useBilibiliHotSearch() {
     const labelMap = {
       4: { value: '新', color: TagColor.Yellow },
       5: { value: '热', color: TagColor.Red },
-      7: { value: '直播中', color: TagColor.Yellow },
-      9: { value: '梗', color: TagColor.Yellow },
-      11: { value: '话题', color: TagColor.Yellow },
-      12: { value: '独家', color: TagColor.Yellow },
+      7: { value: '直播中', color: TagColor.Red },
+      9: { value: '梗', color: TagColor.Red },
+      11: { value: '话题', color: TagColor.Red },
+      12: { value: '独家', color: TagColor.Red },
     }
 
     return data.list.map((item: any): TopicItem => {
-      const tag = labelMap[item.label as keyof typeof labelMap] || {}
-
+      const tag = labelMap[item.word_type as keyof typeof labelMap] || {}
+      console.log(item.word_type, tag)
       return {
         type: 'bilibili-hot-search',
         id: item.hot_id.toString(),

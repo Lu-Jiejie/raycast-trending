@@ -1,12 +1,14 @@
 import {
   Action,
   ActionPanel,
+  getPreferenceValues,
   List,
 } from '@raycast/api'
-import { settings } from '../logic/settings'
+import { getEnabledSources } from '../logic'
 import TrendingTopics from './TrendingTopics'
 
-const lang = settings.lang
+const preferences = getPreferenceValues<Preferences>()
+const lang = preferences.lang || 'en'
 const i18n = {
   selectSource: {
     en: 'Select Source',
@@ -19,7 +21,7 @@ const i18n = {
 }
 
 export default function SourceSelector() {
-  const enabledSources = settings.enabledSources
+  const enabledSources = getEnabledSources()
 
   return (
     <List navigationTitle={i18n.selectSource[lang]}>
