@@ -1,10 +1,12 @@
-import * as bilibili from './bilibili'
-import * as douyin from './douyin'
-import * as thepaper from './thepaper'
-import * as tieba from './tieba'
-import * as toutiao from './toutiao'
-import * as weibo from './weibo'
-import * as zhihu from './zhihu'
+import { useBilibiliHotSearch, useBilibiliHotVideo, useBilibiliRanking } from './bilibili'
+import { useDouyinHotSearch } from './douyin'
+import { useGithubTrendingToday } from './github'
+import { useJuejinHotPost } from './juejin'
+import { useThepaperHotNews } from './thepaper'
+import { useTiebaHotTopic } from './tieba'
+import { useToutiaoHotNews } from './toutiao'
+import { useWeiboHotSearch } from './weibo'
+import { useZhihuHotTopic } from './zhihu'
 
 export const sourceInfo = [
   {
@@ -16,7 +18,7 @@ export const sourceInfo = [
     icon: 'icons/bilibili.png',
     page: 'https://search.bilibili.com/all',
     homepage: 'https://www.bilibili.com',
-    hook: bilibili.useBilibiliHotSearch,
+    hook: useBilibiliHotSearch,
   },
   {
     id: 'bilibili-hot-video',
@@ -27,7 +29,7 @@ export const sourceInfo = [
     icon: 'icons/bilibili.png',
     page: 'https://www.bilibili.com/v/popular/all',
     homepage: 'https://www.bilibili.com',
-    hook: bilibili.useBilibiliHotVideo,
+    hook: useBilibiliHotVideo,
   },
   {
     id: 'bilibili-ranking',
@@ -38,7 +40,7 @@ export const sourceInfo = [
     icon: 'icons/bilibili.png',
     page: 'https://www.bilibili.com/v/popular/rank/all',
     homepage: 'https://www.bilibili.com',
-    hook: bilibili.useBilibiliRanking,
+    hook: useBilibiliRanking,
   },
   {
     id: 'douyin-hot-search',
@@ -49,7 +51,7 @@ export const sourceInfo = [
     icon: 'icons/douyin.png',
     page: 'https://www.douyin.com/hot',
     homepage: 'https://www.douyin.com',
-    hook: douyin.useDouyinHotSearch,
+    hook: useDouyinHotSearch,
   },
   {
     id: 'thepaper-hot-news',
@@ -60,7 +62,7 @@ export const sourceInfo = [
     icon: 'icons/thepaper.png',
     page: 'https://www.thepaper.cn',
     homepage: 'https://www.thepaper.cn',
-    hook: thepaper.useThepaperHotNews,
+    hook: useThepaperHotNews,
   },
   {
     id: 'tieba-hot-topic',
@@ -71,7 +73,7 @@ export const sourceInfo = [
     icon: 'icons/tieba.png',
     page: 'https://tieba.baidu.com/hottopic/browse/topicList?res_type=1',
     homepage: 'https://tieba.baidu.com',
-    hook: tieba.useTiebaHotTopic,
+    hook: useTiebaHotTopic,
   },
   {
     id: 'toutiao-hot-news',
@@ -82,7 +84,7 @@ export const sourceInfo = [
     icon: 'icons/toutiao.png',
     page: 'https://www.toutiao.com',
     homepage: 'https://www.toutiao.com',
-    hook: toutiao.useToutiaoHotNews,
+    hook: useToutiaoHotNews,
   },
   {
     id: 'weibo-hot-search',
@@ -93,7 +95,7 @@ export const sourceInfo = [
     icon: 'icons/weibo.png',
     page: 'https://weibo.com/hot/search',
     homepage: 'https://www.weibo.com',
-    hook: weibo.useWeiboHotSearch,
+    hook: useWeiboHotSearch,
   },
   {
     id: 'zhihu-hot-topic',
@@ -104,7 +106,29 @@ export const sourceInfo = [
     icon: 'icons/zhihu.png',
     page: 'https://www.zhihu.com/hot',
     homepage: 'https://www.zhihu.com',
-    hook: zhihu.useZhihuHotTopic,
+    hook: useZhihuHotTopic,
+  },
+  {
+    id: 'juejin-hot-post',
+    title: {
+      en: 'Juejin (Hot Post)',
+      zh: '稀土掘金(热门文章)',
+    },
+    icon: 'icons/juejin.png',
+    page: 'https://juejin.cn/hot/articles',
+    homepage: 'https://juejin.cn',
+    hook: useJuejinHotPost,
+  },
+  {
+    id: 'github-trending-today',
+    title: {
+      en: 'GitHub (Trending Today)',
+      zh: 'GitHub(今日趋势)',
+    },
+    icon: { light: 'icons/github.png', dark: 'icons/github@dark.png' },
+    page: 'https://github.com/trending?since=daily',
+    homepage: 'https://github.com',
+    hook: useGithubTrendingToday,
   },
 ] as const
 

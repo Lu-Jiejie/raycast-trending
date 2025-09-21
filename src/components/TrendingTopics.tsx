@@ -15,6 +15,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useTrending } from '../hooks/useTrendingById'
 import { getEnabledSources } from '../logic'
 import { sourceInfo } from '../sources'
+import { TagColor } from '../types'
 
 const preferences = getPreferenceValues<Preferences>()
 const lang = preferences.lang || 'en'
@@ -72,8 +73,6 @@ function formatTimestamp(timestamp: number): string {
 
 function getRankIcon(rank: number): Image.ImageLike {
   const num = rank + 1
-  if (num > 30)
-    return Icon.Dot
 
   const iconName = `Number${String(num).padStart(2, '0')}` as keyof typeof Icon
   return {
@@ -125,55 +124,61 @@ export default function TrendingTopics({ defaultSource }: TrendingTopicsProps = 
   const listItems = useMemo(() => {
     return data?.map((item: TopicItem, index: number) => {
       let subtitle: string | undefined
+
       let accessories: List.Item.Accessory[] = []
 
+      // show tag by default
+      if (item?.tag && item.tag?.value) {
+        accessories.push({ tag: { value: item.tag.value, color: item.tag.color || TagColor.Yellow } })
+      }
+
       switch (trendingType) {
-        case 'bilibili-hot-search':
-          accessories = [{ tag: { value: item.extra?.tag?.value, color: item.extra?.tag?.color } }]
-          break
         case 'bilibili-hot-video':
         case 'bilibili-ranking':
-          accessories = [
-            { tag: { value: item.extra?.reason, color: Color.Yellow } },
+          accessories.push(
             { icon: { source: item.extra?.ownerFace, mask: Image.Mask.RoundedRectangle }, text: item.extra?.owner },
             { icon: Icon.Play, text: formatCompactNumber(item.extra?.view || 0) },
-          ]
+          )
           break
         case 'tieba-hot-topic':
-          accessories = [
+          accessories.push(
             { icon: Icon.Message, text: formatCompactNumber(item.extra?.discuss || 0) },
-          ]
+          )
           break
         case 'douyin-hot-search':
-          accessories = [
-            { tag: { value: item.extra?.tag?.value, color: item.extra?.tag?.color } },
+          accessories.push(
             { icon: Icon.LineChart, text: formatCompactNumber(item.extra?.hotValue || 0) },
-          ]
+          )
           break
         case 'weibo-hot-search':
-          accessories = [
-            { tag: { value: item.extra?.tag?.value, color: item.extra?.tag?.color } },
+          accessories.push(
             { icon: Icon.LineChart, text: formatCompactNumber(item.extra?.hotValue || 0) },
-          ]
+          )
           break
         case 'thepaper-hot-news':
-          accessories = [
+          accessories.push(
             { icon: Icon.ThumbsUp, text: formatCompactNumber(item.extra?.praiseCount || 0) },
             // { icon: Icon.SpeechBubbleActive, text: formatCompactNumber(item.extra?.commentCount || 0) },
             { text: formatDate(item.extra?.publishTime) },
-          ]
+          )
           break
         case 'zhihu-hot-topic':
-          accessories = [
+          accessories.push(
             { icon: Icon.LineChart, text: formatCompactNumber(item.extra?.hotValue || 0) },
-          ]
+          )
           break
-        case 'toutiao-hot-news':
+        case 'juejin-hot-post':
+          accessories.push(
+            { icon: { source: item.extra?.authorAvatar, mask: Image.Mask.RoundedRectangle }, text: item.extra?.author },
+            { icon: Icon.LineChart, text: formatCompactNumber(item.extra?.hotValue || 0) },
+          )
+          break
+        case 'github-trending-today':
+          subtitle = item.extra?.owner
           accessories = [
-            { tag: { value: item.extra?.tag?.value, color: item.extra?.tag?.color },
-            },
+            { icon: item.tag ? { source: Icon.CircleFilled, tintColor: item.tag?.color } : undefined, text: item.tag?.value },
+            { icon: Icon.Star, text: formatCompactNumber(item.extra?.starCount) },
           ]
-          break
       }
 
       return (
@@ -242,7 +247,9 @@ export default function TrendingTopics({ defaultSource }: TrendingTopicsProps = 
       <List.Item
         title={title}
         subtitle={formatTimestamp(timestamp)}
-        icon={icon}
+        icon={typeof icon === 'string'
+          ? icon
+          : { source: { light: icon.light, dark: icon.dark || icon.light } }}
         key={`${trendingType}-header`}
         actions={(
           <ActionPanel>

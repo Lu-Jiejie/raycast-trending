@@ -15,7 +15,6 @@ export function useWeiboHotSearch() {
       .filter((item) => {
         return item.is_ad !== 1
       })
-      .slice(0, 30)
       .map((item: any): TopicItem => {
         const searchKey = item.word_scheme || `#${item.word}#`
         return {
@@ -23,9 +22,9 @@ export function useWeiboHotSearch() {
           id: item.word,
           title: item.word,
           url: `https://s.weibo.com/weibo?q=${encodeURIComponent(searchKey)}`,
+          tag: { value: item.icon_desc, color: item.icon_desc_color },
           description: item.desc,
           extra: {
-            tag: { value: item.icon_desc, color: item.icon_desc_color },
             hotValue: item.num || 0,
           },
         }

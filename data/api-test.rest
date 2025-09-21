@@ -32,4 +32,8 @@ GET https://www.zhihu.com/api/v3/feed/topstory/hot-list-web?limit=30&desktop=tru
 ### Toutiao Hot News
 GET https://www.toutiao.com/hot-event/hot-board/?origin=toutiao_pc
 
+### Juejin Hot Post
+GET https://api.juejin.cn/content_api/v1/content/article_rank?category_id=1&type=hot
 
+### 1
+GET https://github.com/trending?since=daily

@@ -27,7 +27,9 @@ export default function TrendingBySource() {
       {enabledSources.map(source => (
         <List.Item
           key={source.id}
-          icon={source.icon}
+          icon={typeof source.icon === 'string'
+            ? source.icon
+            : { source: { light: source.icon.light, dark: source.icon.dark || source.icon.light } }}
           title={source.title[lang]}
           keywords={[source.title.en, source.title.zh]}
           actions={(

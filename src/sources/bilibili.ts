@@ -23,7 +23,7 @@ export function useBilibiliHotSearch() {
         title: item.show_name,
         url: `https://www.bilibili.com/v/popular/all?keyword=${encodeURIComponent(item.keyword)}`,
         description: item.keyword,
-        extra: { tag },
+        tag,
       }
     })
   }
@@ -34,11 +34,13 @@ export function useBilibiliHotVideo() {
   const fetchBilibiliHotVideo = async () => {
     const { data } = await axios.get('https://api.bilibili.com/x/web-interface/popular')
     return data.data.list.map((item: any): TopicItem => {
+      const reason = item.rcmd_reason.content
       return {
         type: 'bilibili-hot-video',
         id: item.bvid,
         title: item.title,
         url: `https://www.bilibili.com/video/${item.bvid}`,
+        tag: reason ? { value: reason, color: '#d66011' } : undefined,
         description: item.desc,
         extra: {
           owner: item.owner.name,
@@ -59,7 +61,7 @@ export function useBilibiliHotVideo() {
 export function useBilibiliRanking() {
   const fetchBilibiliRanking = async () => {
     const { data } = await axios.get('https://api.bilibili.com/x/web-interface/ranking/v2')
-    return data.data.list.slice(0, 30).map((item: any): TopicItem => {
+    return data.data.list.map((item: any): TopicItem => {
       return {
         type: 'bilibili-ranking',
         id: item.bvid,

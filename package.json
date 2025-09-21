@@ -111,6 +111,24 @@
       "description": "Whether to show trending topics from Zhihu (Hot Topic)."
     },
     {
+      "name": "show-juejin-hot-post",
+      "title": "Show Juejin (Hot Post)",
+      "label": "Juejin (Hot Post)",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "description": "Whether to show trending topics from Juejin (Hot Post)."
+    },
+    {
+      "name": "show-github-trending-today",
+      "title": "Show GitHub (Trending Today)",
+      "label": "GitHub (Trending Today)",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "description": "Whether to show trending topics from GitHub (Trending Today)."
+    },
+    {
       "name": "primarySource",
       "title": "Primary Source",
       "description": "Choose a source to display at the top of the list.",
@@ -153,6 +171,14 @@
         {
           "title": "Zhihu (Hot Topic)",
           "value": "zhihu-hot-topic"
+        },
+        {
+          "title": "Juejin (Hot Post)",
+          "value": "juejin-hot-post"
+        },
+        {
+          "title": "GitHub (Trending Today)",
+          "value": "github-trending-today"
         }
       ]
     },

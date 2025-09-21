@@ -30,7 +30,7 @@ export function useDouyinHotSearch() {
       20: { value: '解读', color: '#FE2C55' },
     }
 
-    return data.data.word_list.slice(0, 30).map((item: any): TopicItem => {
+    return data.data.word_list.map((item: any): TopicItem => {
       const tag = labelMap[item.label as keyof typeof labelMap] || {}
 
       return {
@@ -38,9 +38,9 @@ export function useDouyinHotSearch() {
         id: item.sentence_id,
         title: item.word,
         url: `https://www.douyin.com/hot/${item.sentence_id}`,
+        tag,
         extra: {
           hotValue: item.hot_value,
-          tag,
         },
       }
     })

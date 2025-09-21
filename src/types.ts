@@ -5,6 +5,7 @@ export interface TopicItem {
   title: string
   url: string
   type: SourceType
+  tag?: { value: string, color: string }
   description?: string
   extra?: Record<string, any>
 }

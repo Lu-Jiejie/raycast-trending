@@ -17,16 +17,14 @@ const labelMap: Record<string, {
 export function useToutiaoHotNews() {
   const fetchToutiaoHotNews = async (): Promise<TopicItem[]> => {
     const { data } = await axios.get('https://www.toutiao.com/hot-event/hot-board/?origin=toutiao_pc')
-    return data.data.slice(0, 30).map((item: any): TopicItem => {
+    return data.data.map((item: any): TopicItem => {
       return {
         type: 'toutiao-hot-news',
         id: item.ClusterIdStr,
         title: item.Title,
         url: `https://www.toutiao.com/trending/${item.ClusterIdStr}`,
         description: item.topic_desc,
-        extra: {
-          tag: labelMap[item.LabelDesc] || { value: item.LabelDesc, color: '#1A74FF' },
-        },
+        tag: labelMap[item.LabelDesc] || { value: item.LabelDesc, color: '#1A74FF' },
       }
     })
   }
