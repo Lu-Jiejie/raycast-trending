@@ -3,10 +3,10 @@ import { getPreferenceValues } from '@raycast/api'
 import { sourceInfo } from '../sources'
 
 export function getEnabledSources(): SourceInfo[] {
-  const preferences = getPreferenceValues<Preferences>()
+  const preferences = getPreferenceValues<Preferences>() as Record<string, any>
 
   const enabledSources = sourceInfo.filter(
-    source => preferences[`show-${source.id}`],
+    source => preferences[`show-${source.id}` as keyof typeof preferences],
   )
 
   const primarySourceType = preferences.primarySource

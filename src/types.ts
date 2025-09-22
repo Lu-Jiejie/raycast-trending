@@ -22,3 +22,11 @@ export enum TagColor {
   PrimaryText = 'raycast-primary-text',
   SecondaryText = 'raycast-secondary-text',
 }
+
+export interface HookReturnType {
+  data: TopicItem[] | null
+  refresh: (force?: boolean) => Promise<void>
+  isLoading: boolean
+  error: Error | null
+  timestamp: number
+}

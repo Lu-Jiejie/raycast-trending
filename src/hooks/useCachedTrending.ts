@@ -1,5 +1,5 @@
 import type { SourceType } from '../sources'
-import type { TopicItem } from '../types'
+import type { HookReturnType, TopicItem } from '../types'
 import { getPreferenceValues } from '@raycast/api'
 import { useCachedState } from '@raycast/utils'
 import { useEffect, useMemo, useState } from 'react'
@@ -9,7 +9,7 @@ const minTTL = 1000 * 10 // minimum 10 seconds
 export function useCachedTrending(
   cacheKey: SourceType,
   handler: () => Promise<TopicItem[]>,
-) {
+): HookReturnType {
   const preferences = getPreferenceValues<Preferences>()
   const ttl = +(preferences.ttl) * 60 * 1000 || 5 * 60 * 1000
 

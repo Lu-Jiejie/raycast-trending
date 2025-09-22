@@ -8,7 +8,18 @@ import { useToutiaoHotNews } from './toutiao'
 import { useWeiboHotSearch } from './weibo'
 import { useZhihuHotTopic } from './zhihu'
 
-export const sourceInfo = [
+function defineSourceInfo<T extends readonly {
+  id: string
+  title: { en: string, zh: string }
+  icon: string | { light: string, dark: string }
+  page: string
+  homepage: string
+  hook: () => any
+}[]>(sources: T): T {
+  return sources
+}
+
+export const sourceInfo = defineSourceInfo([
   {
     id: 'bilibili-hot-search',
     title: {
@@ -130,7 +141,7 @@ export const sourceInfo = [
     homepage: 'https://github.com',
     hook: useGithubTrendingToday,
   },
-] as const
+] as const)
 
 export type SourceType = typeof sourceInfo[number]['id']
 export type SourceInfo = typeof sourceInfo[number]
