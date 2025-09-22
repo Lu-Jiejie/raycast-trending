@@ -4,7 +4,7 @@ import {
   getPreferenceValues,
   List,
 } from '@raycast/api'
-import TrendingTopics from './components/TrendingTopics'
+import Trending from './components/Trending'
 import { getEnabledSources } from './logic'
 
 const preferences = getPreferenceValues<Preferences>()
@@ -15,9 +15,9 @@ const i18n = {
     en: 'Select Source',
     zh: '选择热点源',
   },
-  viewTrendingTopics: {
-    en: 'View Trending Topics',
-    zh: '查看热点',
+  viewTrendingContent: {
+    en: 'View Trending Content',
+    zh: '查看热点内容',
   },
 }
 
@@ -35,8 +35,8 @@ export default function TrendingBySource() {
           actions={(
             <ActionPanel>
               <Action.Push
-                title={i18n.viewTrendingTopics[lang]}
-                target={<TrendingTopics defaultSource={source.id} />}
+                title={i18n.viewTrendingContent[lang]}
+                target={<Trending defaultSource={source.id} />}
               />
             </ActionPanel>
           )}

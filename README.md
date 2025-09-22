@@ -3,13 +3,13 @@
 </p>
 
 <h1 align="center">
-Trending Topics <sup><em>for Raycast</em></sup>
+Trending <sup><em>for Raycast</em></sup>
 </h1>
 
 <p align="center">
 一个用于快速查看和打开多个平台的热搜榜的 Raycast 扩展。
 </p>
-<img width="862" src="./metadata/trending-topics-1.png">
+<img width="862" src="./metadata/trending-1.png">
 
 <p align="center">
   <a href="./README.en.md">English</a>
@@ -37,12 +37,12 @@ npm install -g pnpm
 
 1. 克隆仓库：
 ```bash
-git clone https://github.com/Lu-Jiejie/raycast-trending-topics
+git clone https://github.com/Lu-Jiejie/raycast-trending
 ```
 
 2. 进入扩展目录并安装依赖项：
 ```bash
-cd raycast-trending-topics
+cd raycast-trending
 pnpm install
 ```
 

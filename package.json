@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
-  "name": "trending-topics",
-  "title": "Trending Topics",
+  "name": "trending",
+  "title": "Trending",
   "type": "module",
-  "description": "A Raycast extension for exploring trending topics.",
+  "description": "A Raycast extension for exploring trending content and more.",
   "author": "Lu-Jiejie",
   "license": "MIT",
   "categories": [
@@ -18,13 +18,13 @@
     {
       "name": "trending",
       "title": "Trending",
-      "description": "View trending topics",
+      "description": "Explore trending content from various sources.",
       "mode": "view"
     },
     {
       "name": "trending-by-source",
       "title": "Trending by Source",
-      "description": "Choose source to view trending topics",
+      "description": "Choose a source to explore its trending content.",
       "mode": "view"
     }
   ],
@@ -36,7 +36,7 @@
       "type": "checkbox",
       "required": false,
       "default": true,
-      "description": "Whether to show trending topics from Bilibili (Hot Search)."
+      "description": "Show Bilibili (Hot Search) in the source list."
     },
     {
       "name": "show-bilibili-hot-video",
@@ -45,7 +45,7 @@
       "type": "checkbox",
       "required": false,
       "default": true,
-      "description": "Whether to show trending topics from Bilibili (Hot Video)."
+      "description": "Show Bilibili (Hot Video) in the source list."
     },
     {
       "name": "show-bilibili-ranking",
@@ -54,7 +54,7 @@
       "type": "checkbox",
       "required": false,
       "default": true,
-      "description": "Whether to show trending topics from Bilibili (Ranking)."
+      "description": "Show Bilibili (Ranking) in the source list."
     },
     {
       "name": "show-douyin-hot-search",
@@ -63,7 +63,7 @@
       "type": "checkbox",
       "required": false,
       "default": true,
-      "description": "Whether to show trending topics from Douyin (Hot Search)."
+      "description": "Show Douyin (Hot Search) in the source list."
     },
     {
       "name": "show-thepaper-hot-news",
@@ -72,7 +72,7 @@
       "type": "checkbox",
       "required": false,
       "default": true,
-      "description": "Whether to show trending topics from The Paper (Hot News)."
+      "description": "Show The Paper (Hot News) in the source list."
     },
     {
       "name": "show-tieba-hot-topic",
@@ -81,7 +81,7 @@
       "type": "checkbox",
       "required": false,
       "default": true,
-      "description": "Whether to show trending topics from Tieba (Hot Topic)."
+      "description": "Show Tieba (Hot Topic) in the source list."
     },
     {
       "name": "show-toutiao-hot-news",
@@ -90,7 +90,7 @@
       "type": "checkbox",
       "required": false,
       "default": true,
-      "description": "Whether to show trending topics from Toutiao (Hot News)."
+      "description": "Show Toutiao (Hot News) in the source list."
     },
     {
       "name": "show-weibo-hot-search",
@@ -99,7 +99,7 @@
       "type": "checkbox",
       "required": false,
       "default": true,
-      "description": "Whether to show trending topics from Weibo (Hot Search)."
+      "description": "Show Weibo (Hot Search) in the source list."
     },
     {
       "name": "show-zhihu-hot-topic",
@@ -108,7 +108,7 @@
       "type": "checkbox",
       "required": false,
       "default": true,
-      "description": "Whether to show trending topics from Zhihu (Hot Topic)."
+      "description": "Show Zhihu (Hot Topic) in the source list."
     },
     {
       "name": "show-juejin-hot-post",
@@ -117,7 +117,7 @@
       "type": "checkbox",
       "required": false,
       "default": true,
-      "description": "Whether to show trending topics from Juejin (Hot Post)."
+      "description": "Show Juejin (Hot Post) in the source list."
     },
     {
       "name": "show-github-trending-today",
@@ -126,7 +126,7 @@
       "type": "checkbox",
       "required": false,
       "default": true,
-      "description": "Whether to show trending topics from GitHub (Trending Today)."
+      "description": "Show GitHub (Trending Today) in the source list."
     },
     {
       "name": "primarySource",
@@ -185,7 +185,7 @@
     {
       "name": "ttl",
       "title": "Cache Duration",
-      "description": "Duration to cache trending topics (in minutes). Cache will be ignored when manually refreshing.",
+      "description": "Duration to cache trending content (in minutes).",
       "type": "textfield",
       "required": false,
       "default": "5",

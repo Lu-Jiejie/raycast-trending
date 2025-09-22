@@ -1,5 +1,5 @@
-import TrendingTopics from './components/TrendingTopics'
+import Trending from './components/Trending'
 
 export default function Command() {
-  return <TrendingTopics />
+  return <Trending />
 }

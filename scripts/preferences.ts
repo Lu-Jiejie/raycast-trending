@@ -20,7 +20,7 @@ async function updatePreferences() {
       type: 'checkbox',
       required: false,
       default: true,
-      description: `Whether to show trending topics from ${source.title.en}.`,
+      description: `Show ${source.title.en} in the source list.`,
     })
   }
 
@@ -39,7 +39,7 @@ async function updatePreferences() {
   }, {
     name: 'ttl',
     title: 'Cache Duration',
-    description: 'Duration to cache trending topics (in minutes). Cache will be ignored when manually refreshing.',
+    description: 'Duration to cache trending content (in minutes).',
     type: 'textfield',
     required: false,
     default: '5',

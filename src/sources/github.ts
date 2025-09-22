@@ -26,7 +26,6 @@ export function useGithubTrendingToday() {
       const url = `https://github.com/${owner}/${repo}`
       const description = $(element).find('>p').text().trim()
       const starCount = +$(element).find(`a[href="/${owner}/${repo}/stargazers"]`).text().trim().replace(',', '') || 0
-      console.log(`${titleAnchor.attr('href')}/stargazers`)
       const language = $(element).find('span[itemprop="programmingLanguage"]').text().trim()
       const languageColor = $(element).find('span.repo-language-color').css('background-color') || 'gray'
 

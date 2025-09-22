@@ -3,13 +3,13 @@
 </p>
 
 <h1 align="center">
-Trending Topics <sup><em>for Raycast</em></sup>
+Trending <sup><em>for Raycast</em></sup>
 </h1>
 
 <p align="center">
-A Raycast extension to quickly view and open trending topics of several platforms.
+A Raycast extension for exploring trending content and more.
 </p>
-<img width="862" src="./metadata/trending-topics-1.png">
+<img width="862" src="./metadata/trending-1.png">
 
 <p align="center">
   English / <a href="./README.md">简体中文</a>
@@ -36,12 +36,12 @@ npm install -g pnpm
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/Lu-Jiejie/raycast-trending-topics
+git clone https://github.com/Lu-Jiejie/raycast-trending
 ```
 
 2. Navigate to the plugin directory and install dependencies:
 ```bash
-cd raycast-trending-topics
+cd raycast-trending
 pnpm install
 ```
 

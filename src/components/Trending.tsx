@@ -58,9 +58,9 @@ const i18n = {
     en: 'Select Source',
     zh: '选择热点源',
   },
-  trendingTopics: {
-    en: 'Trending Topics',
-    zh: '热点',
+  trendingContent: {
+    en: 'Trending Content',
+    zh: '热点内容',
   },
 }
 
@@ -98,10 +98,11 @@ function formatDate(date: string | number) {
   return d.toISOString().replace('T', ' ').slice(0, 16)
 }
 
-interface TrendingTopicsProps {
+export default function Trending({
+  defaultSource,
+}: {
   defaultSource?: SourceType
-}
-export default function TrendingTopics({ defaultSource }: TrendingTopicsProps = {}) {
+} = {}) {
   const enabledSources = getEnabledSources()
   const primarySource = preferences.primarySource || enabledSources[0]?.id
   // const primarySource: SourceType = 'toutiao-hot-news'
@@ -275,7 +276,7 @@ export default function TrendingTopics({ defaultSource }: TrendingTopicsProps = 
           </ActionPanel>
         )}
       />
-      <List.Section title={i18n.trendingTopics[lang]}>
+      <List.Section title={i18n.trendingContent[lang]}>
         {listItems}
       </List.Section>
     </List>
