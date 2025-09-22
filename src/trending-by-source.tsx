@@ -1,14 +1,15 @@
+import type { SourceInfo } from './sources'
 import {
   Action,
   ActionPanel,
   getPreferenceValues,
   List,
 } from '@raycast/api'
+import { useEffect, useState } from 'react'
 import Trending from './components/Trending'
-import { getEnabledSources } from './logic'
+import { getOrderedEnabledSources } from './logic/source'
 
 const preferences = getPreferenceValues<Preferences>()
-const enabledSources = getEnabledSources()
 const lang = preferences.lang
 const i18n = {
   selectSource: {
@@ -22,8 +23,20 @@ const i18n = {
 }
 
 export default function TrendingBySource() {
+  const [enabledSources, setEnabledSources] = useState<SourceInfo[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    async function loadSources() {
+      const sources = await getOrderedEnabledSources()
+      setEnabledSources(sources)
+      setIsLoading(false)
+    }
+    loadSources()
+  }, [])
+
   return (
-    <List navigationTitle={i18n.selectSource[lang]}>
+    <List isLoading={isLoading} navigationTitle={i18n.selectSource[lang]}>
       {enabledSources.map(source => (
         <List.Item
           key={source.id}

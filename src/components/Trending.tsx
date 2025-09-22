@@ -1,4 +1,4 @@
-import type { SourceType } from '../sources'
+import type { SourceInfo, SourceType } from '../sources'
 import type { TopicItem } from '../types'
 import {
   Action,
@@ -12,8 +12,9 @@ import {
   Toast,
 } from '@raycast/api'
 import { useEffect, useMemo, useState } from 'react'
+import ConfigureSources from '../configure-sources'
 import { useTrending } from '../hooks/useTrendingById'
-import { getEnabledSources } from '../logic'
+import { getOrderedEnabledSources } from '../logic/source'
 import { sourceInfo } from '../sources'
 import { TagColor } from '../types'
 
@@ -35,6 +36,10 @@ const i18n = {
   openHomepageInBrowser: {
     en: 'Open Homepage in Browser',
     zh: '在浏览器中打开主页',
+  },
+  configureSources: {
+    en: 'Configure Sources',
+    zh: '配置热点源',
   },
   lastUpdated: {
     en: 'Last updated',
@@ -103,10 +108,23 @@ export default function Trending({
 }: {
   defaultSource?: SourceType
 } = {}) {
-  const enabledSources = getEnabledSources()
-  const primarySource = preferences.primarySource || enabledSources[0]?.id
-  // const primarySource: SourceType = 'toutiao-hot-news'
-  const [trendingType, setSourceType] = useState<SourceType>(defaultSource || primarySource)
+  const [enabledSources, setEnabledSources] = useState<SourceInfo[]>([])
+  const [trendingType, setSourceType] = useState<SourceType>(defaultSource || enabledSources[0]?.id)
+
+  // 加载排序后的源列表
+  useEffect(() => {
+    async function loadOrderedSources() {
+      const orderedSources = await getOrderedEnabledSources()
+      setEnabledSources(orderedSources)
+
+      // 如果没有指定默认源，使用排序后的第一个源
+      if (!defaultSource && orderedSources.length > 0) {
+        setSourceType(orderedSources[0].id)
+      }
+    }
+
+    loadOrderedSources()
+  }, [])
   const { data, isLoading, refresh, timestamp, error } = useTrending(trendingType)
   const definition = sourceInfo.find(s => s.id === trendingType)
   const title = definition!.title[lang]
@@ -264,6 +282,12 @@ export default function Trending({
               }}
             />
             <ActionPanel.Section title={i18n.more[lang]}>
+              <Action.Push
+                title={i18n.configureSources[lang]}
+                icon={Icon.Cog}
+                target={<ConfigureSources />}
+                shortcut={{ modifiers: ['cmd'], key: 'o' }}
+              />
               <Action.OpenInBrowser
                 title={i18n.openListInBrowser[lang]}
                 url={definition!.page}
