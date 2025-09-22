@@ -6,6 +6,7 @@ import { sourceInfo } from '../sources'
 const STORAGE_KEY = 'source-order'
 const ENABLED_SOURCES_KEY = 'enabled-sources'
 
+// Get sources in alphabetical order as default fallback
 function getAlphabeticalOrder(): string[] {
   return sourceInfo
     .map(source => ({ id: source.id, title: source.title.en }))
@@ -13,6 +14,7 @@ function getAlphabeticalOrder(): string[] {
     .map(source => source.id)
 }
 
+// Merge saved order with any new sources that might have been added
 async function mergeSourceOrder(savedOrder: string[], allSourceIds: string[]): Promise<string[]> {
   const existingOrder = savedOrder.filter(id => allSourceIds.includes(id))
   const newSources = allSourceIds.filter(id => !savedOrder.includes(id))
@@ -33,6 +35,7 @@ async function mergeSourceOrder(savedOrder: string[], allSourceIds: string[]): P
   return existingOrder
 }
 
+// Get user's custom source order or default to alphabetical
 export async function getCustomSourceOrder(): Promise<string[]> {
   const savedOrder = await LocalStorage.getItem<string>(STORAGE_KEY)
   const allSourceIds = sourceInfo.map(s => s.id)
@@ -50,6 +53,7 @@ export async function getCustomSourceOrder(): Promise<string[]> {
   return getAlphabeticalOrder()
 }
 
+// Get list of sources enabled by the user
 export async function getCustomEnabledSources(): Promise<string[]> {
   const savedEnabledSources = await LocalStorage.getItem<string>(ENABLED_SOURCES_KEY)
   const savedOrder = await LocalStorage.getItem<string>(STORAGE_KEY)
@@ -68,6 +72,7 @@ export async function getCustomEnabledSources(): Promise<string[]> {
     return migrateFromOldPreferences()
   }
 
+  // Add any new sources that weren't previously known
   if (savedOrder) {
     try {
       const knownSourceIds: string[] = JSON.parse(savedOrder)
@@ -84,13 +89,15 @@ export async function getCustomEnabledSources(): Promise<string[]> {
   return enabledSources
 }
 
+// Migration helper for first-time setup or after data corruption
 function migrateFromOldPreferences(): string[] {
-  // ena
+  // Enable all sources by default on first run
   const allSourceIds = sourceInfo.map(s => s.id)
   LocalStorage.setItem(ENABLED_SOURCES_KEY, JSON.stringify(allSourceIds))
   return allSourceIds
 }
 
+// Get sources in user's preferred order, filtered to only enabled ones
 export async function getOrderedEnabledSources(): Promise<SourceInfo[]> {
   const enabledSourceIds = await getCustomEnabledSources()
   const enabledSources = sourceInfo.filter(source => enabledSourceIds.includes(source.id))
@@ -99,6 +106,7 @@ export async function getOrderedEnabledSources(): Promise<SourceInfo[]> {
   const orderedSources: SourceInfo[] = []
   const remainingSources = [...enabledSources]
 
+  // Arrange sources according to user's custom order
   for (const sourceId of customOrder) {
     const sourceIndex = remainingSources.findIndex(s => s.id === sourceId)
     if (sourceIndex >= 0) {
@@ -109,16 +117,19 @@ export async function getOrderedEnabledSources(): Promise<SourceInfo[]> {
   return [...orderedSources, ...remainingSources]
 }
 
+// Save user's source configuration to persistent storage
 export async function saveSourceConfig(order: string[], enabledSources: string[]): Promise<void> {
   await LocalStorage.setItem(STORAGE_KEY, JSON.stringify(order))
   await LocalStorage.setItem(ENABLED_SOURCES_KEY, JSON.stringify(enabledSources))
 }
 
+// Reset source configuration to default state
 export async function resetToDefaultState(): Promise<void> {
   await LocalStorage.removeItem(STORAGE_KEY)
   await LocalStorage.removeItem(ENABLED_SOURCES_KEY)
 }
 
+// Group sources into enabled and disabled categories for configuration UI
 export async function getGroupedSourcesForConfig(lang: 'en' | 'zh'): Promise<{
   enabled: SourceOrderItem[]
   disabled: SourceOrderItem[]
@@ -136,6 +147,7 @@ export async function getGroupedSourcesForConfig(lang: 'en' | 'zh'): Promise<{
   const enabledSources: SourceOrderItem[] = []
   const disabledSources: SourceOrderItem[] = []
 
+  // First process sources in custom order
   for (const sourceId of customOrder) {
     const source = allSources.find(s => s.id === sourceId)
     if (source) {
@@ -148,6 +160,7 @@ export async function getGroupedSourcesForConfig(lang: 'en' | 'zh'): Promise<{
     }
   }
 
+  // Then handle any sources not in the custom order
   const processedIds = new Set([...enabledSources.map(s => s.id), ...disabledSources.map(s => s.id)])
   const remainingSources = allSources.filter(s => !processedIds.has(s.id))
 
@@ -168,6 +181,8 @@ export async function getGroupedSourcesForConfig(lang: 'en' | 'zh'): Promise<{
   }
 }
 
+// Toggle a source between enabled and disabled states without moving it
+// This allows users to change their mind before saving
 export function toggleSourceInGroup(
   sourceId: string,
   groupedSources: { enabled: SourceOrderItem[], disabled: SourceOrderItem[] },
@@ -178,21 +193,22 @@ export function toggleSourceInGroup(
   const disabledIndex = disabled.findIndex(s => s.id === sourceId)
 
   if (enabledIndex >= 0) {
-    const source = { ...enabled[enabledIndex], enabled: false }
+    // When disabling a source, just toggle its enabled state but keep it in the same array
     const newEnabled = [...enabled]
-    newEnabled[enabledIndex] = source
+    newEnabled[enabledIndex] = { ...enabled[enabledIndex], enabled: false }
 
     return {
       enabled: newEnabled,
-      disabled: [...disabled],
+      disabled,
     }
   }
   else if (disabledIndex >= 0) {
-    const source = { ...disabled[disabledIndex], enabled: true }
-    const newDisabled = disabled.filter((_, index) => index !== disabledIndex)
+    // When enabling a source, just toggle its enabled state but keep it in the same array
+    const newDisabled = [...disabled]
+    newDisabled[disabledIndex] = { ...disabled[disabledIndex], enabled: true }
 
     return {
-      enabled: [...enabled, source],
+      enabled,
       disabled: newDisabled,
     }
   }

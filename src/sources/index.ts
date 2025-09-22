@@ -24,7 +24,7 @@ export const sourceInfo = defineSourceInfo([
     id: 'bilibili-hot-search',
     title: {
       en: 'Bilibili (Hot Search)',
-      zh: '哔哩哔哩(热搜)',
+      zh: '哔哩哔哩 (热搜)',
     },
     icon: 'icons/bilibili.png',
     page: 'https://search.bilibili.com/all',
@@ -35,7 +35,7 @@ export const sourceInfo = defineSourceInfo([
     id: 'bilibili-hot-video',
     title: {
       en: 'Bilibili (Hot Video)',
-      zh: '哔哩哔哩(热门视频)',
+      zh: '哔哩哔哩 (热门视频)',
     },
     icon: 'icons/bilibili.png',
     page: 'https://www.bilibili.com/v/popular/all',
@@ -46,7 +46,7 @@ export const sourceInfo = defineSourceInfo([
     id: 'bilibili-ranking',
     title: {
       en: 'Bilibili (Ranking)',
-      zh: '哔哩哔哩(全站排行)',
+      zh: '哔哩哔哩 (全站排行)',
     },
     icon: 'icons/bilibili.png',
     page: 'https://www.bilibili.com/v/popular/rank/all',
@@ -57,7 +57,7 @@ export const sourceInfo = defineSourceInfo([
     id: 'douyin-hot-search',
     title: {
       en: 'Douyin (Hot Search)',
-      zh: '抖音(热搜)',
+      zh: '抖音 (热搜)',
     },
     icon: 'icons/douyin.png',
     page: 'https://www.douyin.com/hot',
@@ -79,7 +79,7 @@ export const sourceInfo = defineSourceInfo([
     id: 'tieba-hot-topic',
     title: {
       en: 'Tieba (Hot Topic)',
-      zh: '百度贴吧(热议)',
+      zh: '百度贴吧 (热议)',
     },
     icon: 'icons/tieba.png',
     page: 'https://tieba.baidu.com/hottopic/browse/topicList?res_type=1',
@@ -101,7 +101,7 @@ export const sourceInfo = defineSourceInfo([
     id: 'weibo-hot-search',
     title: {
       en: 'Weibo (Hot Search)',
-      zh: '微博(热搜)',
+      zh: '微博 (热搜)',
     },
     icon: 'icons/weibo.png',
     page: 'https://weibo.com/hot/search',
@@ -112,7 +112,7 @@ export const sourceInfo = defineSourceInfo([
     id: 'zhihu-hot-topic',
     title: {
       en: 'Zhihu (Hot Topic)',
-      zh: '知乎(热榜)',
+      zh: '知乎 (热榜)',
     },
     icon: 'icons/zhihu.png',
     page: 'https://www.zhihu.com/hot',
@@ -123,7 +123,7 @@ export const sourceInfo = defineSourceInfo([
     id: 'juejin-hot-post',
     title: {
       en: 'Juejin (Hot Post)',
-      zh: '稀土掘金(热门文章)',
+      zh: '稀土掘金 (热门文章)',
     },
     icon: 'icons/juejin.png',
     page: 'https://juejin.cn/hot/articles',
@@ -134,7 +134,7 @@ export const sourceInfo = defineSourceInfo([
     id: 'github-trending-today',
     title: {
       en: 'GitHub (Trending Today)',
-      zh: 'GitHub(今日趋势)',
+      zh: 'GitHub (今日趋势)',
     },
     icon: { light: 'icons/github.png', dark: 'icons/github@dark.png' },
     page: 'https://github.com/trending?since=daily',

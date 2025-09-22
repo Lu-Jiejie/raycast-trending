@@ -1,5 +1,5 @@
-import Trending from './components/Trending'
+import TrendingMain from './components/TrendingMain'
 
 export default function Command() {
-  return <Trending />
+  return <TrendingMain />
 }

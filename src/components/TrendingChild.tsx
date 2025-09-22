@@ -1,21 +1,10 @@
 import type { SourceInfo, SourceType } from '../sources'
 import type { TopicItem } from '../types'
-import {
-  Action,
-  ActionPanel,
-  Color,
-  getPreferenceValues,
-  Icon,
-  Image,
-  List,
-  showToast,
-  Toast,
-} from '@raycast/api'
-import { useEffect, useMemo, useState } from 'react'
+import { Action, ActionPanel, Color, getPreferenceValues, Icon, Image, List, showToast, Toast } from '@raycast/api'
+import { useEffect, useMemo } from 'react'
 import Configure from '../configure'
 import { useTrending } from '../hooks/useTrendingById'
 import { t } from '../logic'
-import { getOrderedEnabledSources } from '../logic/source'
 import { sourceInfo } from '../sources'
 import { TagColor } from '../types'
 
@@ -44,11 +33,6 @@ function getRankIcon(rank: number): Image.ImageLike {
 }
 
 function formatCompactNumber(number: number) {
-  // if (number < 1000)
-  //   return number.toString()
-  // if (number < 10000)
-  //   return `${(number / 1000).toFixed(1)}K`
-  // return `${(number / 1000000).toFixed(1)}M`
   const langCode = lang === 'en' ? 'en-US' : 'zh-CN'
   const res = new Intl.NumberFormat(langCode, { notation: 'compact' }).format(number)
   return res
@@ -60,30 +44,16 @@ function formatDate(date: string | number) {
   return d.toISOString().replace('T', ' ').slice(0, 16)
 }
 
-export default function Trending({
-  defaultSource,
+export default function TrendingChild({
+  trendingType,
+  enabledSources,
+  setSourceType,
 }: {
-  defaultSource?: SourceType
-} = {}) {
-  const [enabledSources, setEnabledSources] = useState<SourceInfo[]>([])
-  const [trendingType, setSourceType] = useState<SourceType>(defaultSource || enabledSources[0]?.id)
-
-  useEffect(() => {
-    async function loadOrderedSources() {
-      const orderedSources = await getOrderedEnabledSources()
-      setEnabledSources(orderedSources)
-
-      if (!defaultSource && orderedSources.length > 0) {
-        setSourceType(orderedSources[0].id)
-      }
-    }
-
-    loadOrderedSources()
-  }, [])
+  trendingType: SourceType
+  enabledSources: SourceInfo[]
+  setSourceType: (sourceType: SourceType) => void
+}) {
   const { data, isLoading, refresh, timestamp, error } = useTrending(trendingType)
-  const definition = sourceInfo.find(s => s.id === trendingType)
-  const title = definition!.title[lang]
-  const icon = definition!.icon
 
   useEffect(() => {
     if (error) {
@@ -94,6 +64,15 @@ export default function Trending({
       })
     }
   }, [error])
+
+  const definition = sourceInfo.find(s => s.id === trendingType)
+
+  if (!definition) {
+    return <List isLoading />
+  }
+
+  const title = definition.title[lang]
+  const icon = definition.icon
 
   const listItems = useMemo(() => {
     return data?.map((item: TopicItem, index: number) => {
@@ -237,12 +216,6 @@ export default function Trending({
               }}
             />
             <ActionPanel.Section title={t('More', '更多')}>
-              <Action.Push
-                title={t('Configure Sources', '配置热点源')}
-                icon={Icon.Cog}
-                target={<Configure />}
-                shortcut={{ modifiers: ['cmd'], key: 'o' }}
-              />
               <Action.OpenInBrowser
                 title={t('Open List in Browser', '在浏览器中打开列表')}
                 url={definition!.page}
@@ -250,6 +223,11 @@ export default function Trending({
               <Action.OpenInBrowser
                 title={t('Open Homepage in Browser', '在浏览器中打开主页')}
                 url={definition!.homepage}
+              />
+              <Action.Push
+                title={t('Configure Sources', '配置热点源')}
+                icon={Icon.Cog}
+                target={<Configure />}
               />
             </ActionPanel.Section>
           </ActionPanel>
