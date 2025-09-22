@@ -12,68 +12,25 @@ import {
   Toast,
 } from '@raycast/api'
 import { useEffect, useMemo, useState } from 'react'
-import ConfigureSources from '../configure-sources'
+import Configure from '../configure'
 import { useTrending } from '../hooks/useTrendingById'
+import { t } from '../logic'
 import { getOrderedEnabledSources } from '../logic/source'
 import { sourceInfo } from '../sources'
 import { TagColor } from '../types'
 
 const preferences = getPreferenceValues<Preferences>()
 const lang = preferences.lang || 'en'
-const i18n = {
-  refresh: {
-    en: 'Refresh',
-    zh: '刷新',
-  },
-  openInBrowser: {
-    en: 'Open in Browser',
-    zh: '在浏览器中打开',
-  },
-  openListInBrowser: {
-    en: 'Open List in Browser',
-    zh: '在浏览器中打开列表',
-  },
-  openHomepageInBrowser: {
-    en: 'Open Homepage in Browser',
-    zh: '在浏览器中打开主页',
-  },
-  configureSources: {
-    en: 'Configure Sources',
-    zh: '配置热点源',
-  },
-  lastUpdated: {
-    en: 'Last updated',
-    zh: '最后更新',
-  },
-  updating: {
-    en: 'Updating...',
-    zh: '正在更新...',
-  },
-  more: {
-    en: 'More',
-    zh: '更多',
-  },
-  searchPlaceholder(sourceName: string) {
-    return {
-      en: `Search in ${sourceName}...`,
-      zh: `在 ${sourceName} 中搜索 ...`,
-    }
-  },
-  selectSource: {
-    en: 'Select Source',
-    zh: '选择热点源',
-  },
-  trendingContent: {
-    en: 'Trending Content',
-    zh: '热点内容',
-  },
-}
 
 function formatTimestamp(timestamp: number): string {
   if (!timestamp)
-    return i18n.updating[lang]
+    return t('Updating...', '正在更新...')
 
-  return `${i18n.lastUpdated[lang]}: ${new Date(timestamp).toLocaleString()}`
+  return `${t('Last updated', '最后更新')}: ${new Date(timestamp).toLocaleString()}`
+}
+
+function getSearchPlaceholder(sourceName: string): string {
+  return t(`Search in ${sourceName}...`, `在 ${sourceName} 中搜索 ...`)
 }
 
 function getRankIcon(rank: number): Image.ImageLike {
@@ -111,13 +68,11 @@ export default function Trending({
   const [enabledSources, setEnabledSources] = useState<SourceInfo[]>([])
   const [trendingType, setSourceType] = useState<SourceType>(defaultSource || enabledSources[0]?.id)
 
-  // 加载排序后的源列表
   useEffect(() => {
     async function loadOrderedSources() {
       const orderedSources = await getOrderedEnabledSources()
       setEnabledSources(orderedSources)
 
-      // 如果没有指定默认源，使用排序后的第一个源
       if (!defaultSource && orderedSources.length > 0) {
         setSourceType(orderedSources[0].id)
       }
@@ -211,11 +166,11 @@ export default function Trending({
             <ActionPanel>
               <Action.OpenInBrowser
                 url={item.url}
-                title={i18n.openInBrowser[lang]}
+                title={t('Open in Browser', '在浏览器中打开')}
               />
-              <ActionPanel.Section title={i18n.more[lang]}>
+              <ActionPanel.Section title={t('More', '更多')}>
                 <Action
-                  title={i18n.refresh[lang]}
+                  title={t('Refresh', '刷新')}
                   icon={Icon.ArrowClockwise}
                   onAction={() => {
                     refresh(true)
@@ -237,11 +192,11 @@ export default function Trending({
     <List
       isLoading={isLoading}
       navigationTitle={title}
-      searchBarPlaceholder={i18n.searchPlaceholder(definition!.title[lang])[lang]}
+      searchBarPlaceholder={getSearchPlaceholder(definition!.title[lang])}
       actions={(
         <ActionPanel>
           <Action
-            title={i18n.refresh[lang]}
+            title={t('Refresh', '刷新')}
             icon={Icon.ArrowClockwise}
             onAction={() => refresh(true)}
             shortcut={{
@@ -253,7 +208,7 @@ export default function Trending({
       )}
       searchBarAccessory={(
         <List.Dropdown
-          tooltip={i18n.selectSource[lang]}
+          tooltip={t('Select Source', '选择热点源')}
           value={trendingType}
           onChange={value => setSourceType(value as SourceType)}
         >
@@ -273,7 +228,7 @@ export default function Trending({
         actions={(
           <ActionPanel>
             <Action
-              title={i18n.refresh[lang]}
+              title={t('Refresh', '刷新')}
               icon={Icon.ArrowClockwise}
               onAction={() => refresh(true)}
               shortcut={{
@@ -281,26 +236,26 @@ export default function Trending({
                 windows: { modifiers: ['ctrl'], key: 'r' },
               }}
             />
-            <ActionPanel.Section title={i18n.more[lang]}>
+            <ActionPanel.Section title={t('More', '更多')}>
               <Action.Push
-                title={i18n.configureSources[lang]}
+                title={t('Configure Sources', '配置热点源')}
                 icon={Icon.Cog}
-                target={<ConfigureSources />}
+                target={<Configure />}
                 shortcut={{ modifiers: ['cmd'], key: 'o' }}
               />
               <Action.OpenInBrowser
-                title={i18n.openListInBrowser[lang]}
+                title={t('Open List in Browser', '在浏览器中打开列表')}
                 url={definition!.page}
               />
               <Action.OpenInBrowser
-                title={i18n.openHomepageInBrowser[lang]}
+                title={t('Open Homepage in Browser', '在浏览器中打开主页')}
                 url={definition!.homepage}
               />
             </ActionPanel.Section>
           </ActionPanel>
         )}
       />
-      <List.Section title={i18n.trendingContent[lang]}>
+      <List.Section title={t('Trending Content', '热点内容')}>
         {listItems}
       </List.Section>
     </List>

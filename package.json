@@ -28,9 +28,9 @@
       "mode": "view"
     },
     {
-      "name": "configure-sources",
-      "title": "Configure Sources",
-      "description": "Configure the order and display of trending sources.",
+      "name": "configure",
+      "title": "Configure Sources Display and Order",
+      "description": "Configure the display and order of sources.",
       "mode": "view"
     }
   ],

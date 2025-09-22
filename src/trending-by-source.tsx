@@ -7,20 +7,11 @@ import {
 } from '@raycast/api'
 import { useEffect, useState } from 'react'
 import Trending from './components/Trending'
+import { t } from './logic'
 import { getOrderedEnabledSources } from './logic/source'
 
 const preferences = getPreferenceValues<Preferences>()
 const lang = preferences.lang
-const i18n = {
-  selectSource: {
-    en: 'Select Source',
-    zh: '选择热点源',
-  },
-  viewTrendingContent: {
-    en: 'View Trending Content',
-    zh: '查看热点内容',
-  },
-}
 
 export default function TrendingBySource() {
   const [enabledSources, setEnabledSources] = useState<SourceInfo[]>([])
@@ -36,7 +27,7 @@ export default function TrendingBySource() {
   }, [])
 
   return (
-    <List isLoading={isLoading} navigationTitle={i18n.selectSource[lang]}>
+    <List isLoading={isLoading} navigationTitle={t('Select Source', '选择热点源')}>
       {enabledSources.map(source => (
         <List.Item
           key={source.id}
@@ -48,7 +39,7 @@ export default function TrendingBySource() {
           actions={(
             <ActionPanel>
               <Action.Push
-                title={i18n.viewTrendingContent[lang]}
+                title={t('View Trending Content', '查看热点内容')}
                 target={<Trending defaultSource={source.id} />}
               />
             </ActionPanel>

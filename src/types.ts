@@ -30,3 +30,10 @@ export interface HookReturnType {
   error: Error | null
   timestamp: number
 }
+
+export interface SourceOrderItem {
+  id: string
+  title: string
+  icon: string | { light: string, dark: string }
+  enabled: boolean
+}
