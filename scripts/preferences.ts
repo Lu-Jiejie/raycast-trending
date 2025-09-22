@@ -55,6 +55,13 @@ async function updatePreferences() {
       { title: 'English', value: 'en' },
       { title: '简体中文', value: 'zh' },
     ],
+  }, {
+    name: 'proxyUrl',
+    title: 'Proxy URL',
+    description: 'Proxy server URL (e.g., http://127.0.0.1:7890). Leave empty to disable proxy.',
+    type: 'textfield',
+    required: false,
+    placeholder: 'http://127.0.0.1:7890',
   })
 
   packageJson.preferences = newPreferences
