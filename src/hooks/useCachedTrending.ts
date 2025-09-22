@@ -1,4 +1,4 @@
-import type { SourceType } from '../sources'
+import type { SourceType } from '../config/sourceInfo'
 import type { HookReturnType, TopicItem } from '../types'
 import { getPreferenceValues } from '@raycast/api'
 import { useCachedState } from '@raycast/utils'

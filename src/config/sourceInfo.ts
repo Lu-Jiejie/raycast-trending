@@ -1,12 +1,12 @@
-import { useBilibiliHotSearch, useBilibiliHotVideo, useBilibiliRanking } from './bilibili'
-import { useDouyinHotSearch } from './douyin'
-import { useGithubTrendingToday } from './github'
-import { useJuejinHotPost } from './juejin'
-import { useThepaperHotNews } from './thepaper'
-import { useTiebaHotTopic } from './tieba'
-import { useToutiaoHotNews } from './toutiao'
-import { useWeiboHotSearch } from './weibo'
-import { useZhihuHotTopic } from './zhihu'
+import { useBilibiliHotSearch, useBilibiliHotVideo, useBilibiliRanking } from '../sources/bilibili'
+import { useDouyinHotSearch } from '../sources/douyin'
+import { useGithubTrendingToday } from '../sources/github'
+import { useJuejinHotPost } from '../sources/juejin'
+import { useThepaperHotNews } from '../sources/thepaper'
+import { useTiebaHotTopic } from '../sources/tieba'
+import { useToutiaoHotNews } from '../sources/toutiao'
+import { useWeiboHotSearch } from '../sources/weibo'
+import { useZhihuHotTopic } from '../sources/zhihu'
 
 function defineSourceInfo<T extends readonly {
   id: string
@@ -143,5 +143,5 @@ export const sourceInfo = defineSourceInfo([
   },
 ] as const)
 
-export type SourceType = typeof sourceInfo[number]['id']
-export type SourceInfo = typeof sourceInfo[number]
+export type SourceType = (typeof sourceInfo)[number]['id']
+export type SourceInfo = (typeof sourceInfo)[number]

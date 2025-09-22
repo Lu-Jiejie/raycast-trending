@@ -1,4 +1,4 @@
-import type { SourceInfo } from './sources'
+import type { SourceInfo } from './config/sourceInfo'
 import type { SourceOrderItem } from './types'
 import {
   Action,
@@ -8,11 +8,11 @@ import {
   List,
 } from '@raycast/api'
 import { useEffect, useState } from 'react'
-import TrendingMain from './components/TrendingMain'
+import TrendingMain from './components/Trending'
+import { sourceInfo } from './config/sourceInfo'
 import Configure from './configure'
 import { t } from './logic'
 import { getGroupedSourcesForConfig } from './logic/source'
-import { sourceInfo } from './sources'
 
 const preferences = getPreferenceValues<Preferences>()
 const lang = preferences.lang

@@ -1,7 +1,7 @@
-import type { SourceInfo } from '../sources'
+import type { SourceInfo } from '../config/sourceInfo'
 import type { SourceOrderItem } from '../types'
 import { LocalStorage } from '@raycast/api'
-import { sourceInfo } from '../sources'
+import { sourceInfo } from '../config/sourceInfo'
 
 const STORAGE_KEY = 'source-order'
 const ENABLED_SOURCES_KEY = 'enabled-sources'

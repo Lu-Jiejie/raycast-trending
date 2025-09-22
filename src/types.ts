@@ -1,4 +1,4 @@
-import type { SourceType } from './sources'
+import type { SourceType } from './config/sourceInfo'
 
 export interface TopicItem {
   id: string
@@ -6,6 +6,7 @@ export interface TopicItem {
   url: string
   type: SourceType
   tag?: { value: string, color: string }
+  hotValue?: number
   description?: string
   extra?: Record<string, any>
 }
