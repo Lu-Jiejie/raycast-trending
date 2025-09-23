@@ -3,6 +3,7 @@ import { useBilibiliHotSearch, useBilibiliHotVideo, useBilibiliRanking } from '.
 import { useDoubanNewMovie } from '../sources/douban'
 import { useDouyinHotSearch } from '../sources/douyin'
 import { useGithubTrendingToday } from '../sources/github'
+import { useHupuHotPost } from '../sources/hupu'
 import { useJuejinHotPost } from '../sources/juejin'
 import { useThepaperHotNews } from '../sources/thepaper'
 import { useTiebaHotTopic } from '../sources/tieba'
@@ -217,6 +218,21 @@ export const sourceInfo = defineSourceInfo([
     page: 'https://www.52pojie.cn/forum.php?mod=forumdisplay&fid=2',
     homepage: 'https://www.52pojie.cn',
     hook: use52PojieHotPost,
+  },
+  {
+    id: 'hupu-hot-post',
+    title: {
+      en: 'Hupu',
+      zh: '虎扑',
+    },
+    subTitle: {
+      en: 'Hot Post',
+      zh: '步行街热帖',
+    },
+    icon: 'icons/hupu.png',
+    page: 'https://bbs.hupu.com/all-gambia',
+    homepage: 'https://bbs.hupu.com',
+    hook: useHupuHotPost,
   },
 ] as const)
 

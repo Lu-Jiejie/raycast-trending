@@ -130,7 +130,11 @@ export default function TrendingChild({
           onChange={value => setSourceType(value as SourceType)}
         >
           {enabledSources.map(source => (
-            <List.Dropdown.Item key={source.id} title={source.title[lang]} value={source.id} />
+            <List.Dropdown.Item
+              key={source.id}
+              title={`${source.title[lang]} (${source.subTitle[lang]})`}
+              value={source.id}
+            />
           ))}
         </List.Dropdown>
       )}

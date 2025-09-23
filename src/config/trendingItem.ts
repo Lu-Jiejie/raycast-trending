@@ -96,6 +96,15 @@ const sourceConfigs: [SourceType | SourceType[], ItemProcessor][] = [
       ],
     },
   ],
+  [
+    'hupu-hot-post',
+    {
+      getAccessories: item => [
+        // { icon: Icon.Message, text: formatCompactNumber(item.extra?.comment || 0) },
+        { icon: Icon.LineChart, text: formatCompactNumber(item.extra?.view || 0) },
+      ],
+    },
+  ],
 ]
 
 export const sourceItemProcessors: Record<SourceType, ItemProcessor> = {} as Record<SourceType, ItemProcessor>

@@ -1,12 +1,6 @@
 import type { SourceInfo } from './config/sourceInfo'
 import type { SourceOrderItem } from './types'
-import {
-  Action,
-  ActionPanel,
-  getPreferenceValues,
-  Icon,
-  List,
-} from '@raycast/api'
+import { Action, ActionPanel, getPreferenceValues, Icon, List } from '@raycast/api'
 import { useEffect, useState } from 'react'
 import TrendingMain from './components/Trending'
 import { sourceInfo } from './config/sourceInfo'
@@ -55,7 +49,10 @@ export default function TrendingBySource() {
                 : { source: { light: source.icon.light, dark: source.icon.dark || source.icon.light } }}
               title={source.title}
               subtitle={source.subTitle}
-              keywords={[sourceDetail.title.en, sourceDetail.title.zh]}
+              keywords={[
+                `${sourceDetail.title.en} (${sourceDetail.subTitle.en})`,
+                `${sourceDetail.title.zh} (${sourceDetail.subTitle.zh})`,
+              ]}
               actions={(
                 <ActionPanel>
                   <Action.Push
@@ -100,7 +97,10 @@ export default function TrendingBySource() {
                   : { source: { light: source.icon.light, dark: source.icon.dark || source.icon.light } }}
                 title={source.title}
                 subtitle={source.subTitle ? `${source.subTitle} (${t('Disabled', '已禁用')})` : t('Disabled', '已禁用')}
-                keywords={[sourceDetail.title.en, sourceDetail.title.zh]}
+                keywords={[
+                  `${sourceDetail.title.en} (${sourceDetail.subTitle.en})`,
+                  `${sourceDetail.title.zh} (${sourceDetail.subTitle.zh})`,
+                ]}
                 actions={(
                   <ActionPanel>
                     <Action.Push
