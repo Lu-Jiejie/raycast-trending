@@ -1,13 +1,13 @@
-import type { TopicItem } from '../types'
+import type { TrendingItem } from '../types'
 import { load } from 'cheerio'
 import { useCachedTrending } from '../hooks/useCachedTrending'
 import axios from '../logic/axios'
 
 export function useDoubanNewMovie() {
-  const fetchDoubanNewMovie = async (): Promise<TopicItem[]> => {
+  const fetchDoubanNewMovie = async (): Promise<TrendingItem[]> => {
     const { data } = await axios.get('https://movie.douban.com/chart')
     const $ = load(data)
-    const res: TopicItem[] = []
+    const res: TrendingItem[] = []
 
     $('.article .item').each((_, element) => {
       const titleAnchor = $(element).find('td:nth-child(2) a')

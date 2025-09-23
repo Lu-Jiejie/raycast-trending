@@ -54,6 +54,7 @@ export default function TrendingBySource() {
                 ? source.icon
                 : { source: { light: source.icon.light, dark: source.icon.dark || source.icon.light } }}
               title={source.title}
+              subtitle={source.subTitle}
               keywords={[sourceDetail.title.en, sourceDetail.title.zh]}
               actions={(
                 <ActionPanel>
@@ -98,7 +99,7 @@ export default function TrendingBySource() {
                   ? source.icon
                   : { source: { light: source.icon.light, dark: source.icon.dark || source.icon.light } }}
                 title={source.title}
-                subtitle={t('Disabled', '已禁用')}
+                subtitle={source.subTitle ? `${source.subTitle} (${t('Disabled', '已禁用')})` : t('Disabled', '已禁用')}
                 keywords={[sourceDetail.title.en, sourceDetail.title.zh]}
                 actions={(
                   <ActionPanel>

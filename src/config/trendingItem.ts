@@ -1,5 +1,5 @@
 import type { List } from '@raycast/api'
-import type { TopicItem } from '../types'
+import type { TrendingItem } from '../types'
 import type { SourceType } from './sourceInfo'
 import { getPreferenceValues, Icon, Image } from '@raycast/api'
 import { TagColor } from '../types'
@@ -8,8 +8,8 @@ const preferences = getPreferenceValues<Preferences>()
 const lang = preferences.lang || 'en'
 
 interface ItemProcessor {
-  getAccessories?: (item: TopicItem) => List.Item.Accessory[]
-  getSubtitle?: (item: TopicItem) => string | undefined
+  getAccessories?: (item: TrendingItem) => List.Item.Accessory[]
+  getSubtitle?: (item: TrendingItem) => string | undefined
 }
 
 function formatCompactNumber(number: number) {
@@ -22,7 +22,7 @@ function formatDate(date: string | number) {
   return d.toISOString().replace('T', ' ').slice(0, 16)
 }
 
-export function getDefaultTag(item: TopicItem): List.Item.Accessory[] {
+export function getDefaultTag(item: TrendingItem): List.Item.Accessory[] {
   const accessories: List.Item.Accessory[] = []
   if (item?.tag && item.tag?.value) {
     accessories.push({ tag: { value: item.tag.value, color: item.tag.color || TagColor.Yellow } })
@@ -115,7 +115,7 @@ export function getSourceItemProcessor(sourceType: SourceType): ItemProcessor {
   return sourceItemProcessors[sourceType] || {}
 }
 
-export function getFullAccessories(item: TopicItem, trendingType: SourceType): List.Item.Accessory[] {
+export function getFullAccessories(item: TrendingItem, trendingType: SourceType): List.Item.Accessory[] {
   const defaultAccessories = getDefaultTag(item)
   const processor = getSourceItemProcessor(trendingType)
 
@@ -127,7 +127,7 @@ export function getFullAccessories(item: TopicItem, trendingType: SourceType): L
   return [...defaultAccessories, ...sourceAccessories]
 }
 
-export function getItemSubtitle(item: TopicItem, trendingType: SourceType): string | undefined {
+export function getItemSubtitle(item: TrendingItem, trendingType: SourceType): string | undefined {
   const processor = getSourceItemProcessor(trendingType)
   return processor.getSubtitle ? processor.getSubtitle(item) : undefined
 }

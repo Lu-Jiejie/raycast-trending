@@ -13,6 +13,7 @@ import { useZhihuHotTopic } from '../sources/zhihu'
 function defineSourceInfo<T extends readonly {
   id: string
   title: { en: string, zh: string }
+  subTitle: { en: string, zh: string }
   icon: string | { light: string, dark: string }
   page: string
   homepage: string
@@ -25,8 +26,12 @@ export const sourceInfo = defineSourceInfo([
   {
     id: 'bilibili-hot-search',
     title: {
-      en: 'Bilibili (Hot Search)',
-      zh: '哔哩哔哩 (热搜)',
+      en: 'Bilibili',
+      zh: '哔哩哔哩',
+    },
+    subTitle: {
+      en: 'Hot Search',
+      zh: '热搜',
     },
     icon: 'icons/bilibili.png',
     page: 'https://search.bilibili.com/all',
@@ -36,8 +41,12 @@ export const sourceInfo = defineSourceInfo([
   {
     id: 'bilibili-hot-video',
     title: {
-      en: 'Bilibili (Hot Video)',
-      zh: '哔哩哔哩 (热门视频)',
+      en: 'Bilibili',
+      zh: '哔哩哔哩',
+    },
+    subTitle: {
+      en: 'Hot Videos',
+      zh: '热门视频',
     },
     icon: 'icons/bilibili.png',
     page: 'https://www.bilibili.com/v/popular/all',
@@ -47,8 +56,12 @@ export const sourceInfo = defineSourceInfo([
   {
     id: 'bilibili-ranking',
     title: {
-      en: 'Bilibili (Ranking)',
-      zh: '哔哩哔哩 (全站排行)',
+      en: 'Bilibili',
+      zh: '哔哩哔哩',
+    },
+    subTitle: {
+      en: 'Ranking',
+      zh: '全站排行',
     },
     icon: 'icons/bilibili.png',
     page: 'https://www.bilibili.com/v/popular/rank/all',
@@ -58,8 +71,12 @@ export const sourceInfo = defineSourceInfo([
   {
     id: 'douyin-hot-search',
     title: {
-      en: 'Douyin (Hot Search)',
-      zh: '抖音 (热搜)',
+      en: 'Douyin',
+      zh: '抖音',
+    },
+    subTitle: {
+      en: 'Hot Search',
+      zh: '热搜',
     },
     icon: 'icons/douyin.png',
     page: 'https://www.douyin.com/hot',
@@ -69,8 +86,12 @@ export const sourceInfo = defineSourceInfo([
   {
     id: 'thepaper-hot-news',
     title: {
-      en: 'The Paper (Hot News)',
+      en: 'The Paper',
       zh: '澎湃新闻',
+    },
+    subTitle: {
+      en: 'Hot News',
+      zh: '热点',
     },
     icon: 'icons/thepaper.png',
     page: 'https://www.thepaper.cn',
@@ -80,8 +101,12 @@ export const sourceInfo = defineSourceInfo([
   {
     id: 'tieba-hot-topic',
     title: {
-      en: 'Tieba (Hot Topic)',
-      zh: '百度贴吧 (热议)',
+      en: 'Tieba',
+      zh: '百度贴吧',
+    },
+    subTitle: {
+      en: 'Hot Topic',
+      zh: '热议',
     },
     icon: 'icons/tieba.png',
     page: 'https://tieba.baidu.com/hottopic/browse/topicList?res_type=1',
@@ -91,8 +116,12 @@ export const sourceInfo = defineSourceInfo([
   {
     id: 'toutiao-hot-news',
     title: {
-      en: 'Toutiao (Hot News)',
+      en: 'Toutiao',
       zh: '今日头条',
+    },
+    subTitle: {
+      en: 'Hot News',
+      zh: '热点',
     },
     icon: 'icons/toutiao.png',
     page: 'https://www.toutiao.com',
@@ -102,8 +131,12 @@ export const sourceInfo = defineSourceInfo([
   {
     id: 'weibo-hot-search',
     title: {
-      en: 'Weibo (Hot Search)',
-      zh: '微博 (热搜)',
+      en: 'Weibo',
+      zh: '微博',
+    },
+    subTitle: {
+      en: 'Hot Search',
+      zh: '热搜',
     },
     icon: 'icons/weibo.png',
     page: 'https://weibo.com/hot/search',
@@ -113,8 +146,12 @@ export const sourceInfo = defineSourceInfo([
   {
     id: 'zhihu-hot-topic',
     title: {
-      en: 'Zhihu (Hot Topic)',
-      zh: '知乎 (热榜)',
+      en: 'Zhihu',
+      zh: '知乎',
+    },
+    subTitle: {
+      en: 'Hot Topic',
+      zh: '热榜',
     },
     icon: 'icons/zhihu.png',
     page: 'https://www.zhihu.com/hot',
@@ -124,8 +161,12 @@ export const sourceInfo = defineSourceInfo([
   {
     id: 'juejin-hot-post',
     title: {
-      en: 'Juejin (Hot Post)',
-      zh: '稀土掘金 (热门文章)',
+      en: 'Juejin',
+      zh: '稀土掘金',
+    },
+    subTitle: {
+      en: 'Hot Post',
+      zh: '热门文章',
     },
     icon: 'icons/juejin.png',
     page: 'https://juejin.cn/hot/articles',
@@ -135,8 +176,12 @@ export const sourceInfo = defineSourceInfo([
   {
     id: 'github-trending-today',
     title: {
-      en: 'GitHub (Trending Today)',
-      zh: 'GitHub (今日趋势)',
+      en: 'GitHub',
+      zh: 'GitHub',
+    },
+    subTitle: {
+      en: 'Trending Today',
+      zh: '今日趋势',
     },
     icon: { light: 'icons/github.png', dark: 'icons/github@dark.png' },
     page: 'https://github.com/trending?since=daily',
@@ -146,8 +191,12 @@ export const sourceInfo = defineSourceInfo([
   {
     id: 'douban-new-movie',
     title: {
-      en: 'Douban (New Movie)',
-      zh: '豆瓣 (新片榜)',
+      en: 'Douban',
+      zh: '豆瓣',
+    },
+    subTitle: {
+      en: 'New Movie',
+      zh: '新片榜',
     },
     icon: 'icons/douban.png',
     page: 'https://movie.douban.com/chart',
@@ -157,8 +206,12 @@ export const sourceInfo = defineSourceInfo([
   {
     id: '52pojie-hot-post',
     title: {
-      en: '52pojie (Hot Post)',
-      zh: '吾爱破解 (热榜)',
+      en: '52pojie',
+      zh: '吾爱破解',
+    },
+    subTitle: {
+      en: 'Hot Post',
+      zh: '热帖',
     },
     icon: 'icons/52pojie.png',
     page: 'https://www.52pojie.cn/forum.php?mod=forumdisplay&fid=2',

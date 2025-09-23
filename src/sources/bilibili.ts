@@ -1,4 +1,4 @@
-import type { TopicItem } from '../types'
+import type { TrendingItem } from '../types'
 import { useCachedTrending } from '../hooks/useCachedTrending'
 import axios from '../logic/axios'
 
@@ -15,7 +15,7 @@ export function useBilibiliHotSearch() {
       12: { value: '独家', color: '#FF6699' },
     }
 
-    return data.list.map((item: any): TopicItem => {
+    return data.list.map((item: any): TrendingItem => {
       const tag = labelMap[item.word_type as keyof typeof labelMap] || {}
       return {
         type: 'bilibili-hot-search',
@@ -33,7 +33,7 @@ export function useBilibiliHotSearch() {
 export function useBilibiliHotVideo() {
   const fetchBilibiliHotVideo = async () => {
     const { data } = await axios.get('https://api.bilibili.com/x/web-interface/popular')
-    return data.data.list.map((item: any): TopicItem => {
+    return data.data.list.map((item: any): TrendingItem => {
       const reason = item.rcmd_reason.content
       return {
         type: 'bilibili-hot-video',
@@ -61,7 +61,7 @@ export function useBilibiliHotVideo() {
 export function useBilibiliRanking() {
   const fetchBilibiliRanking = async () => {
     const { data } = await axios.get('https://api.bilibili.com/x/web-interface/ranking/v2')
-    return data.data.list.map((item: any): TopicItem => {
+    return data.data.list.map((item: any): TrendingItem => {
       return {
         type: 'bilibili-ranking',
         id: item.bvid,

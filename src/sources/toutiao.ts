@@ -1,4 +1,4 @@
-import type { TopicItem } from '../types'
+import type { TrendingItem } from '../types'
 import { useCachedTrending } from '../hooks/useCachedTrending'
 import axios from '../logic/axios'
 
@@ -15,9 +15,9 @@ const labelMap: Record<string, {
 }
 
 export function useToutiaoHotNews() {
-  const fetchToutiaoHotNews = async (): Promise<TopicItem[]> => {
+  const fetchToutiaoHotNews = async (): Promise<TrendingItem[]> => {
     const { data } = await axios.get('https://www.toutiao.com/hot-event/hot-board/?origin=toutiao_pc')
-    return data.data.map((item: any): TopicItem => {
+    return data.data.map((item: any): TrendingItem => {
       return {
         type: 'toutiao-hot-news',
         id: item.ClusterIdStr,

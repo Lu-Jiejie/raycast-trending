@@ -1,9 +1,9 @@
-import type { TopicItem } from '../types'
+import type { TrendingItem } from '../types'
 import { useCachedTrending } from '../hooks/useCachedTrending'
 import axios from '../logic/axios'
 
 export function useWeiboHotSearch() {
-  const fetchWeiboHotSearch = async (): Promise<TopicItem[]> => {
+  const fetchWeiboHotSearch = async (): Promise<TrendingItem[]> => {
     const { data } = await axios.get('https://weibo.com/ajax/side/hotSearch', {
       headers: {
         Referer: 'https://weibo.com/',
@@ -15,7 +15,7 @@ export function useWeiboHotSearch() {
       .filter((item) => {
         return item.is_ad !== 1
       })
-      .map((item: any): TopicItem => {
+      .map((item: any): TrendingItem => {
         const searchKey = item.word_scheme || `#${item.word}#`
         return {
           type: 'weibo-hot-search',

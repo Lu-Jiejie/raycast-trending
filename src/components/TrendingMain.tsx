@@ -1,6 +1,6 @@
 import type { Image } from '@raycast/api'
 import type { SourceInfo, SourceType } from '../config/sourceInfo'
-import type { TopicItem } from '../types'
+import type { TrendingItem } from '../types'
 import { Action, ActionPanel, Color, getPreferenceValues, Icon, List, showToast, Toast } from '@raycast/api'
 import { useEffect, useMemo } from 'react'
 import { sourceInfo } from '../config/sourceInfo'
@@ -19,8 +19,11 @@ function formatTimestamp(timestamp: number): string {
   return `${t('Last updated', '最后更新')}: ${new Date(timestamp).toLocaleString()}`
 }
 
-function getSearchPlaceholder(sourceName: string): string {
-  return t(`Search in ${sourceName}...`, `在 ${sourceName} 中搜索 ...`)
+function getSearchPlaceholder(definition: SourceInfo): string {
+  return t(
+    `Search in ${definition.title[lang]} (${definition.subTitle[lang]})...`,
+    `在 ${definition.title[lang]} (${definition.subTitle[lang]}) 中搜索 ...`,
+  )
 }
 
 function getRankIcon(rank: number): Image.ImageLike {
@@ -61,10 +64,11 @@ export default function TrendingChild({
   }
 
   const title = definition.title[lang]
+  const subTitle = definition.subTitle[lang]
   const icon = definition.icon
 
   const listItems = useMemo(() => {
-    return data?.map((item: TopicItem, index: number) => {
+    return data?.map((item: TrendingItem, index: number) => {
       const subtitle = getItemSubtitle(item, trendingType)
       const accessories = getFullAccessories(item, trendingType)
 
@@ -105,7 +109,7 @@ export default function TrendingChild({
     <List
       isLoading={isLoading}
       navigationTitle={title}
-      searchBarPlaceholder={getSearchPlaceholder(definition!.title[lang])}
+      searchBarPlaceholder={getSearchPlaceholder(definition)}
       actions={(
         <ActionPanel>
           <Action
@@ -133,7 +137,8 @@ export default function TrendingChild({
     >
       <List.Item
         title={title}
-        subtitle={formatTimestamp(timestamp)}
+        subtitle={subTitle}
+        accessories={[{ text: formatTimestamp(timestamp) }]}
         icon={typeof icon === 'string'
           ? icon
           : { source: { light: icon.light, dark: icon.dark || icon.light } }}

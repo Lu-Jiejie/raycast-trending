@@ -1,4 +1,4 @@
-import type { TopicItem } from '../types'
+import type { TrendingItem } from '../types'
 import { useCachedTrending } from '../hooks/useCachedTrending'
 import axios from '../logic/axios'
 
@@ -30,7 +30,7 @@ export function useDouyinHotSearch() {
       20: { value: '解读', color: '#FE2C55' },
     }
 
-    return data.data.word_list.map((item: any): TopicItem => {
+    return data.data.word_list.map((item: any): TrendingItem => {
       const tag = labelMap[item.label as keyof typeof labelMap] || {}
 
       return {

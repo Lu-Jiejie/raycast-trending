@@ -1,10 +1,10 @@
-import type { TopicItem } from '../types'
+import type { TrendingItem } from '../types'
 import { load } from 'cheerio'
 import { useCachedTrending } from '../hooks/useCachedTrending'
 import axios from '../logic/axios'
 
 export function useGithubTrendingToday() {
-  const fetchGithubTrendingToday = async (): Promise<TopicItem[]> => {
+  const fetchGithubTrendingToday = async (): Promise<TrendingItem[]> => {
     const { data } = await axios.get('https://github.com/trending?since=daily', {
       headers: {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -14,7 +14,7 @@ export function useGithubTrendingToday() {
       },
     })
 
-    const res: TopicItem[] = []
+    const res: TrendingItem[] = []
     const $ = load(data)
 
     $('.Box article').each((_, element) => {

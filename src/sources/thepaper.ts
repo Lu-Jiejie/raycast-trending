@@ -1,11 +1,11 @@
-import type { TopicItem } from '../types'
+import type { TrendingItem } from '../types'
 import { useCachedTrending } from '../hooks/useCachedTrending'
 import axios from '../logic/axios'
 
 export function useThepaperHotNews() {
-  const fetchThepaperHotNews = async (): Promise<TopicItem[]> => {
+  const fetchThepaperHotNews = async (): Promise<TrendingItem[]> => {
     const { data } = await axios.get('https://cache.thepaper.cn/contentapi/wwwIndex/rightSidebar')
-    return data.data.hotNews.map((item: any): TopicItem => {
+    return data.data.hotNews.map((item: any): TrendingItem => {
       return {
         type: 'thepaper-hot-news',
         id: item.contId,

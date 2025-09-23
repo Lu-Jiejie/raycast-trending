@@ -1,11 +1,11 @@
-import type { TopicItem } from '../types'
+import type { TrendingItem } from '../types'
 import { useCachedTrending } from '../hooks/useCachedTrending'
 import axios from '../logic/axios'
 
 export function useJuejinHotPost() {
-  const fetchJuejinHotPost = async (): Promise<TopicItem[]> => {
+  const fetchJuejinHotPost = async (): Promise<TrendingItem[]> => {
     const { data } = await axios.get('https://api.juejin.cn/content_api/v1/content/article_rank?category_id=1&type=hot')
-    return data.data.map((item: any): TopicItem => {
+    return data.data.map((item: any): TrendingItem => {
       return {
         type: 'juejin-hot-post',
         id: item.content.content_id,

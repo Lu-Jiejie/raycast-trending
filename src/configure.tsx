@@ -182,6 +182,7 @@ export default function Configure() {
         id={source.id}
         key={source.id}
         title={source.title}
+        subtitle={source.subTitle}
         // subtitle={statusText}
         icon={iconSource}
         accessories={[

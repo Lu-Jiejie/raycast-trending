@@ -1,6 +1,6 @@
 import type { SourceType } from './config/sourceInfo'
 
-export interface TopicItem {
+export interface TrendingItem {
   id: string
   title: string
   url: string
@@ -12,7 +12,6 @@ export interface TopicItem {
 }
 
 export enum TagColor {
-  // more red rather than red
   Blue = 'raycast-blue',
   Green = 'raycast-green',
   Magenta = 'raycast-magenta',
@@ -25,7 +24,7 @@ export enum TagColor {
 }
 
 export interface HookReturnType {
-  data: TopicItem[] | null
+  data: TrendingItem[] | null
   refresh: (force?: boolean) => Promise<void>
   isLoading: boolean
   error: Error | null
@@ -35,6 +34,7 @@ export interface HookReturnType {
 export interface SourceOrderItem {
   id: string
   title: string
+  subTitle: string
   icon: string | { light: string, dark: string }
   enabled: boolean
 }

@@ -148,6 +148,7 @@ export async function getGroupedSourcesForConfig(lang: 'en' | 'zh'): Promise<{
   const allSources = sourceInfo.map(source => ({
     id: source.id,
     title: source.title[lang],
+    subTitle: source.subTitle[lang],
     icon: source.icon,
     enabled: enabledSourceIds.includes(source.id),
   }))
