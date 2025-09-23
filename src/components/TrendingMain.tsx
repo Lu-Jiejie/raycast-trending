@@ -65,7 +65,6 @@ export default function TrendingChild({
 
   const listItems = useMemo(() => {
     return data?.map((item: TopicItem, index: number) => {
-      // 获取副标题和配件
       const subtitle = getItemSubtitle(item, trendingType)
       const accessories = getFullAccessories(item, trendingType)
 

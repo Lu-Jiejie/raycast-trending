@@ -1,4 +1,6 @@
+import { use52PojieHotPost } from '../sources/52pojie'
 import { useBilibiliHotSearch, useBilibiliHotVideo, useBilibiliRanking } from '../sources/bilibili'
+import { useDoubanNewMovie } from '../sources/douban'
 import { useDouyinHotSearch } from '../sources/douyin'
 import { useGithubTrendingToday } from '../sources/github'
 import { useJuejinHotPost } from '../sources/juejin'
@@ -140,6 +142,28 @@ export const sourceInfo = defineSourceInfo([
     page: 'https://github.com/trending?since=daily',
     homepage: 'https://github.com',
     hook: useGithubTrendingToday,
+  },
+  {
+    id: 'douban-new-movie',
+    title: {
+      en: 'Douban (New Movie)',
+      zh: '豆瓣 (新片榜)',
+    },
+    icon: 'icons/douban.png',
+    page: 'https://movie.douban.com/chart',
+    homepage: 'https://www.douban.com',
+    hook: useDoubanNewMovie,
+  },
+  {
+    id: '52pojie-hot-post',
+    title: {
+      en: '52pojie (Hot Post)',
+      zh: '吾爱破解 (热榜)',
+    },
+    icon: 'icons/52pojie.png',
+    page: 'https://www.52pojie.cn/forum.php?mod=forumdisplay&fid=2',
+    homepage: 'https://www.52pojie.cn',
+    hook: use52PojieHotPost,
   },
 ] as const)
 

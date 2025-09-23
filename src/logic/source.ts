@@ -10,7 +10,15 @@ const ENABLED_SOURCES_KEY = 'enabled-sources'
 function getAlphabeticalOrder(): string[] {
   return sourceInfo
     .map(source => ({ id: source.id, title: source.title.en }))
-    .sort((a, b) => a.title.localeCompare(b.title))
+    .sort((a, b) => {
+      const aIsLetter = /^[A-Z]/i.test(a.title)
+      const bIsLetter = /^[A-Z]/i.test(b.title)
+      if (aIsLetter && !bIsLetter)
+        return -1
+      if (!aIsLetter && bIsLetter)
+        return 1
+      return a.title.localeCompare(b.title)
+    })
     .map(source => source.id)
 }
 

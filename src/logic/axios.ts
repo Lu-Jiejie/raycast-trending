@@ -12,7 +12,6 @@ if (proxyUrl) {
     const host = url.hostname
     const port = Number.parseInt(url.port, 10)
     if (protocol && host && port) {
-      console.log(`Using proxy: ${protocol}://${host}:${port}`)
       _axios.defaults.proxy = { protocol, host, port }
     }
   }

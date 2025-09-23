@@ -87,6 +87,15 @@ const sourceConfigs: [SourceType | SourceType[], ItemProcessor][] = [
       getSubtitle: item => item.extra?.owner,
     },
   ],
+  [
+    'douban-new-movie',
+    {
+      getAccessories: item => [
+        { icon: Icon.Star, text: item.extra?.ratingNum || 'N/A' },
+        { icon: Icon.Message, text: item.extra?.ratingPeople || 'N/A' },
+      ],
+    },
+  ],
 ]
 
 export const sourceItemProcessors: Record<SourceType, ItemProcessor> = {} as Record<SourceType, ItemProcessor>

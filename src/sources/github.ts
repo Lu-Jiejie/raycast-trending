@@ -1,5 +1,5 @@
 import type { TopicItem } from '../types'
-import * as cheerio from 'cheerio'
+import { load } from 'cheerio'
 import { useCachedTrending } from '../hooks/useCachedTrending'
 import axios from '../logic/axios'
 
@@ -15,7 +15,7 @@ export function useGithubTrendingToday() {
     })
 
     const res: TopicItem[] = []
-    const $ = cheerio.load(data)
+    const $ = load(data)
 
     $('.Box article').each((_, element) => {
       const titleAnchor = $(element).find('>h2 a')
