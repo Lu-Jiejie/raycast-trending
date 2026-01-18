@@ -21,6 +21,15 @@ Trending <sup><em>for Raycast</em></sup>
 - [哔哩哔哩](https://www.bilibili.com/)
 - [贴吧](https://tieba.baidu.com/)
 - [抖音](https://www.douyin.com/)
+- [虎扑（步行街热帖）](https://bbs.hupu.com/)
+- [知乎](https://www.zhihu.com/)
+- [微博](https://weibo.com/)
+- [澎湃新闻](https://www.thepaper.cn/)
+- [今日头条](https://www.toutiao.com/)
+- [稀土掘金](https://juejin.cn/)
+- [吾爱破解](https://www.52pojie.cn/)
+- [豆瓣（新片榜）](https://www.douban.com/)
+- [GitHub Trending](https://github.com/trending)
 
 - 以及更多即将支持的平台...
 
