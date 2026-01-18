@@ -4,7 +4,7 @@ import axios from '../logic/axios'
 
 export function useDouyinHotSearch() {
   const fetchDouyinHotSearch = async () => {
-    const cookie = (await axios.get('https://www.douyin.com/passport/general/login_guiding_strategy/?aid=6383')).headers['set-cookie']?.join('; ')
+    const cookie = (await axios.get('https://login.douyin.com/')).headers['set-cookie']?.join('; ')
 
     const { data } = await axios.get('https://www.douyin.com/aweme/v1/web/hot/search/list/?device_platform=webapp&aid=6383&channel=channel_pc_web&detail_list=1', {
       headers: {
